@@ -1,0 +1,6 @@
+# created by virtualenv automatically
+app.db
+pyvenv.cfg
+/Scripts
+/.vscode
+/Lib
