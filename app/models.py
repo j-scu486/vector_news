@@ -80,6 +80,7 @@ class Post(PaginatedAPIMixin, db.Model):
 
     def to_dict(self):
         data = {
+            'id': self.id,
             'post_url': self.post_url,
             'post_title': self.post_title,
             'post_description': self.post_description,
