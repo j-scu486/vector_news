@@ -19,9 +19,6 @@ def get_all_posts():
     per_page = 10
     data = Post.to_collection_dict(Post.query, page, per_page, 'get_all_posts')
 
-    print(re.match(regex, "http://www.example.com") is not None) # True
-    print(re.match(regex, "example.com") is not None)            # False
-
     return jsonify(data), 200
 
 @app.route('/api/post/<int:id>', methods=['GET'])

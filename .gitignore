@@ -4,3 +4,27 @@ pyvenv.cfg
 /Scripts
 /.vscode
 /Lib
+
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/webdev-news-react/node_modules
+/webdev-news-react/.pnp
+.pnp.js
+
+# testing
+/webdev-news-react/coverage
+
+# production
+/webdev-news-react/build
+
+# misc
+/webdev-news-react/.DS_Store
+/webdev-news-react/.env.local
+/webdev-news-react/.env.development.local
+/webdev-news-react/.env.test.local
+/webdev-news-react/.env.production.local
+
+/webdev-news-react/npm-debug.log*
+/webdev-news-react/yarn-debug.log*
+/webdev-news-react/yarn-error.log*
