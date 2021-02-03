@@ -39,7 +39,7 @@ def get_all_user_posts(user_id):
     return jsonify(data), 200
 
 @app.route('/api/post/create/<int:user_id>', methods=['POST'])
-@token_auth.login_required
+# @token_auth.login_required
 def create_post(user_id):
     try:
         data = request.get_json()

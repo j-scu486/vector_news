@@ -40,6 +40,9 @@ class User(db.Model):
     token = db.Column(db.String(32), index=True, unique=True)
     token_expiration = db.Column(db.DateTime)
 
+    def get_post_count(self):
+        return {"post_count" : Post.query.filter_by(user_id=self.id).count()}
+
     def create_token(self, expires_in=6000):
         now = datetime.utcnow()
         if self.token and self.token_expiration  > now + timedelta(seconds=60):
