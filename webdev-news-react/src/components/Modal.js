@@ -1,6 +1,6 @@
 
 import { useState, useContext } from 'react'
-import { WebContext } from '../context'
+import { WebContext } from '../webContext'
 
 const Modal = ({ updateNews }) => {
     const [url, setUrl] = useState('')

@@ -1,12 +1,14 @@
 import { useState, useEffect, useContext } from 'react'
 import { CSSTransition } from 'react-transition-group';
-import { WebContext } from '../context'
+import { WebContext } from '../webContext'
+import { UserContext } from '../userContext'
 import Modal from '../components/Modal'
 
 const UserNews = () => {
     const [news, setNews] = useState([])
     const [modal, setModal] = useState(false)
     const site = useContext(WebContext)
+    const {credentials, setCredentials} = useContext(UserContext)
 
     useEffect(() => {
         updateUserNews()
@@ -37,6 +39,7 @@ const UserNews = () => {
                 )
             })}
             </ul>
+
             <CSSTransition
                 in={modal}
                 timeout={300}

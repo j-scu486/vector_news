@@ -20,5 +20,9 @@ def verify_token(token):
 @basic_auth.login_required
 def get_token():
     token = basic_auth.current_user().create_token()
+    user_id = basic_auth.current_user().id
     db.session.commit()
-    return jsonify({'token': token})
+    return jsonify({
+        'token': token,
+        'user_id': user_id
+        })

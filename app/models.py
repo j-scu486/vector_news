@@ -5,6 +5,7 @@ from flask import url_for
 from app import db
 
 import base64
+import os
 
 tags = db.Table('tags',
     db.Column('tag_id', db.Integer, db.ForeignKey('tag.id'), primary_key=True),
