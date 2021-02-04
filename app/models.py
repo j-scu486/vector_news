@@ -1,7 +1,7 @@
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime, timedelta
-from flask import url_for
+from flask import url_for, jsonify
 from app import db
 
 import base64
@@ -10,6 +10,11 @@ import os
 tags = db.Table('tags',
     db.Column('tag_id', db.Integer, db.ForeignKey('tag.id'), primary_key=True),
     db.Column('post_id', db.Integer, db.ForeignKey('post.id'), primary_key=True),
+)
+
+likes = db.Table('likes',
+    db.Column('like_id', db.Integer, db.ForeignKey('like.id'), primary_key=True),
+    db.Column('user_id', db.Integer, db.ForeignKey('user.id'), primary_key=True), 
 )
 
 class PaginatedAPIMixin(object):
@@ -37,9 +42,25 @@ class User(db.Model):
     username = db.Column(db.String(64), index=True, unique=True)
     email = db.Column(db.String(120), index=True, unique=True)
     password_hash = db.Column(db.String(128))
-    posts = db.relationship('Post', backref='author', lazy='dynamic')
+    posts = db.relationship('Post', backref='user', lazy='dynamic')
     token = db.Column(db.String(32), index=True, unique=True)
     token_expiration = db.Column(db.DateTime)
+    likes = db.relationship('Like', secondary="likes")
+
+    def add_remove_like(self, post_id):
+        for like in self.likes:
+            if like.post_id == post_id: # Post is already liked, so remove
+                self.likes.remove(like)
+                db.session.commit()
+                return
+
+        if not Post.query.get(post_id):
+            return {"error": "post not found"}
+        new_like = Like(post_id=post_id)
+
+        self.likes.append(new_like)
+        db.session.add(new_like)
+        db.session.commit()
 
     def get_post_count(self):
         return {"post_count" : Post.query.filter_by(user_id=self.id).count()}
@@ -69,6 +90,11 @@ class User(db.Model):
     def check_password(self, password):
         return  check_password_hash(self.password_hash, password)
 
+    def to_dict(self):
+        data = {}
+
+        return data
+
     def __repr__(self):
         return '<User {}>'.format(self.username)
 
@@ -85,6 +111,8 @@ class Post(PaginatedAPIMixin, db.Model):
     def to_dict(self):
         data = {
             'id': self.id,
+            'post_user': self.user.username,
+            'post_user_id': self.user_id,
             'post_url': self.post_url,
             'post_title': self.post_title,
             'post_description': self.post_description,
@@ -106,6 +134,13 @@ class Post(PaginatedAPIMixin, db.Model):
 
     def __repr__(self):
         return '<Post {}>'.format(self.post_title)
+
+class Like(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    post_id = db.Column(db.ForeignKey('post.id'))
+
+    def __repr__(self):
+        return '<Like ID {}>'.format(self.id)
 
 class Tag(db.Model):
     id = db.Column(db.Integer, primary_key=True)

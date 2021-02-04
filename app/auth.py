@@ -29,6 +29,7 @@ def get_token():
 
 @app.route('/api/tokens/revoke/<int:user_id>', methods=['POST'])
 def revoke_token(user_id):
+    # Change this to put user_id in body, not url
     user = User.query.get_or_404(user_id)
     if not user:
         return {"error": "User has no token"}

@@ -7,6 +7,9 @@ import Modal from '../components/Modal'
 const UserNews = () => {
     const [news, setNews] = useState([])
     const [modal, setModal] = useState(false)
+    const [userInfo, setuserInfo] = useState('')
+    const [currentModal, setcurrentModal] = useState('')
+
     const site = useContext(WebContext)
     const {user, setUser} = useContext(UserContext)
 
@@ -35,20 +38,45 @@ const UserNews = () => {
                 return (
                     <li key={index}> 
                         {item.post_title}
+                        <button onClick={() => {
+                            setModal(true)
+                            setuserInfo(`${item.post_user_id}`)
+                            setcurrentModal('userInfo')
+                        }}>
+                            {item.post_user}
+                        </button>
                     </li>
                 )
             })}
             </ul>
+                <CSSTransition
+                    in={modal}
+                    timeout={300}
+                    classNames="fade"
+                    unmountOnExit
+                >
+                    {currentModal === 'newPost' ?
+                    <Modal 
+                        modalType="newPost" 
+                        updateNews={updateUserNews} 
+                        onClose={() => setModal(false)} 
+                    />
+                    :
+                    <Modal 
+                        modalType="userInfo"
+                        userId={userInfo} 
+                        onClose={() => setModal(false)} 
+                    />
+                }
+                </CSSTransition>
 
-            <CSSTransition
-                in={modal}
-                timeout={300}
-                classNames="fade"
-                unmountOnExit
-            >
-                <Modal updateNews={updateUserNews} onClose={() => setModal(false)} />
-            </CSSTransition>
-            {user.token && <button onClick={() => { setModal(!modal) }}>Add Post</button>}
+            {user.token && 
+                <button onClick={() => { 
+                    setModal(true) 
+                    setcurrentModal('newPost')
+                    }}>Add Post
+                </button>
+            }
 
         </div>
     )

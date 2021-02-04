@@ -27,6 +27,11 @@ def get_post(id):
     
     return query, 200
 
+# Return user info
+@app.route('/api/user/info/<int:user_id>', methods=['GET'])
+def get_user_info(user_id):
+    return User.query.get_or_404(int(user_id)).to_dict()
+
 # Get all posts from a user
 @app.route('/api/posts/<int:user_id>')
 def get_all_user_posts(user_id):

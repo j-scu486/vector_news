@@ -45,11 +45,9 @@ const Login = () => {
 
 // TODO
 
-// Configure a logout endpoint: will simply revoke token and remove token from state
-// Include token in every request
 // Consider storing token in local storage to persist
+// Add ability to upload profile picture
 
-// No need at this stage for protected routes as it can be viewed publically.
-// Only need auth for sending posts, and maybe some nice UI additions.
+
 
 export default Login

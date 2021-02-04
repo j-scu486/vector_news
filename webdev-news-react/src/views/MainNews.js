@@ -1,7 +1,7 @@
 const MainNews = () => {
     return (
         <div>
-            Main News
+            <h2>Nothing to see here...yet!</h2>
         </div>
     )
 }
