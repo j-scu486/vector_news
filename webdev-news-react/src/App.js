@@ -18,9 +18,9 @@ function App() {
   return (
     <div className="App">
       <UserContext.Provider value={{ user, setUser }}>
-      <Header />
         <Router>
             <WebContext.Provider value="http://127.0.0.1:5000/">
+              <Header />
               <Route exact path="/" component={UserNews} />
               <Route path="/login" component={Login} />
             </WebContext.Provider>
