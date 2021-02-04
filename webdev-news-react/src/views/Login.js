@@ -1,14 +1,16 @@
 import { useState, useContext } from 'react'
 import { WebContext } from '../webContext'
 import { UserContext } from '../userContext'
+import { useHistory } from "react-router-dom";
 
 const Login = () => {
+    let history = useHistory();
     const site = useContext(WebContext)
     const [loginInfo, setloginInfo] = useState({
         'email': '',
         'password': ''
     })
-    const {token, setToken} = useContext(UserContext)
+    const {user, setUser} = useContext(UserContext)
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -21,11 +23,12 @@ const Login = () => {
         })
         .then(res => res.json())
         .then(res => {
-            setToken({
+            setUser({
                 token: res.token,
                 user_id: res.user_id
             })
         })
+        .then(() => history.push("/"))
         
     }
 
@@ -42,11 +45,9 @@ const Login = () => {
 
 // TODO
 
-// Add to endpoint to API to return user info, including user id and post count
-// Configure login page here. User should authenticate with basic auth (/api/tokens)
-// and get a token. Token then should be stored and added to auth header on every request.
-// for now, its probably enough to store in local storage (or in state)
-// Also need to configure a logout endpoint: will simply revoke token and remove token from local storage
+// Configure a logout endpoint: will simply revoke token and remove token from state
+// Include token in every request
+// Consider storing token in local storage to persist
 
 // No need at this stage for protected routes as it can be viewed publically.
 // Only need auth for sending posts, and maybe some nice UI additions.

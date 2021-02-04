@@ -8,7 +8,7 @@ const UserNews = () => {
     const [news, setNews] = useState([])
     const [modal, setModal] = useState(false)
     const site = useContext(WebContext)
-    const {credentials, setCredentials} = useContext(UserContext)
+    const {user, setUser} = useContext(UserContext)
 
     useEffect(() => {
         updateUserNews()
@@ -18,7 +18,7 @@ const UserNews = () => {
 
         const res = await fetch(`${site}/api/posts`)
         const data = await res.json()
-        console.log(data.items)
+
         return data.items
     }
 
@@ -48,7 +48,7 @@ const UserNews = () => {
             >
                 <Modal updateNews={updateUserNews} onClose={() => setModal(false)} />
             </CSSTransition>
-            <button onClick={() => { setModal(!modal) }}>Add Post</button>
+            {user.token && <button onClick={() => { setModal(!modal) }}>Add Post</button>}
 
         </div>
     )

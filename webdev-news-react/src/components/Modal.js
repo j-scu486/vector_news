@@ -1,13 +1,16 @@
 
 import { useState, useContext } from 'react'
 import { WebContext } from '../webContext'
+import { UserContext } from '../userContext'
 
 const Modal = ({ updateNews }) => {
-    const [url, setUrl] = useState('')
-    const [postDecription, setpostDecription] = useState('')
-    const [postTitle, setpostTitle] = useState('')
-    const [tags, setTags] = useState([])
-
+    const [postDetails, setpostDetails] = useState({
+        'post_title': '',
+        'post_description': '',
+        'tags': '',
+        'post_url': ''
+    })
+    const {user, setUser} = useContext(UserContext)
     const site = useContext(WebContext)
 
     const handleSubmit = (e) => {
@@ -17,41 +20,38 @@ const Modal = ({ updateNews }) => {
 
     const handleTags = (e) => {
         if (e.target.checked) {
-            setTags([...tags, e.target.value])
+            setpostDetails({...postDetails, tags: [...postDetails.tags, e.target.value]})
         } else {
-            setTags(tags.filter(tag => tag !== e.target.value))
+            setpostDetails({...postDetails, tags: postDetails.tags.filter(tag => tag !== e.target.value)})
         }
         
     }
     const sendPost = () => {
-        fetch(`${site}api/post/create/1`, {
+        let headers = new Headers()
+        headers.set('Authorization', 'Bearer ' + `${user.token}`)
+        headers.set('Content-type', 'application/json')
+
+        console.log(headers)
+        fetch(`${site}api/post/create/${user.user_id}`, {
             method: 'POST',
-            headers: {
-                'Content-type': 'application/json',
-              },
-            body: JSON.stringify(
-                {
-                    'post_title': postTitle,
-                    'post_description': postDecription,
-                    'tags': tags,
-                    'post_url': url
-                }
-            ),
+            headers: headers,
+            body: JSON.stringify(postDetails)
         })
         .then(() => {
             updateNews()
         })
+        
     }
 
     return (
         <div className="modal">
             <form onSubmit={handleSubmit}>
                 <label>URL</label>
-                <input type="text" onChange={(e) => setUrl(e.target.value)} />
+                <input type="text" onChange={(e) => setpostDetails({...postDetails, post_url: e.target.value})} />
                 <label>Post Description</label>
-                <input type="text" onChange={(e) => setpostDecription(e.target.value)} />
+                <input type="text" onChange={(e) => setpostDetails({...postDetails, post_description: e.target.value})} />
                 <label>Post Title</label>
-                <input type="text" onChange={(e) => setpostTitle(e.target.value)} />
+                <input type="text" onChange={(e) => setpostDetails({...postDetails, post_title: e.target.value})} />
 
                 <div>
                     <input 

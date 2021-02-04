@@ -10,14 +10,14 @@ import Login from './views/Login'
 import { useState } from 'react'
 
 function App() {
-  const [token, setToken] = useState({
+  const [user, setUser] = useState({
     'token': '',
     'user_id': ''
   })
 
   return (
     <div className="App">
-      <UserContext.Provider value={{ token, setToken }}>
+      <UserContext.Provider value={{ user, setUser }}>
       <Header />
         <Router>
             <WebContext.Provider value="http://127.0.0.1:5000/">
