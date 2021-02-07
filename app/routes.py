@@ -13,6 +13,7 @@ regex = re.compile(
         r'(?::\d+)?' # optional port
         r'(?:/?|[/?]\S+)$', re.IGNORECASE)
         
+# Get all posts
 @app.route('/api/posts', methods=['GET'])
 def get_all_posts():
     page = request.args.get('page', 1, type=int)
@@ -21,6 +22,7 @@ def get_all_posts():
 
     return jsonify(data), 200
 
+# Get just an individual post
 @app.route('/api/post/<int:id>', methods=['GET'])
 def get_post(id):
     query = Post.query.filter(Post.id == id).first().to_dict()
@@ -33,7 +35,7 @@ def get_user_info(user_id):
     return User.query.get_or_404(int(user_id)).to_dict()
 
 # Get all posts from a user
-@app.route('/api/posts/<int:user_id>')
+@app.route('/api/posts/<int:user_id>', methods=['GET'])
 def get_all_user_posts(user_id):
     User.query.get_or_404(int(user_id))
 
@@ -46,6 +48,7 @@ def get_all_user_posts(user_id):
 @app.route('/api/post/create/<int:user_id>', methods=['POST'])
 @token_auth.login_required
 def create_post(user_id):
+    # Fix to include user id in body of post, not url
     try:
         data = request.get_json()
     except:

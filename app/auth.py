@@ -1,4 +1,4 @@
-from flask import jsonify
+from flask import jsonify, request
 from app import app, db
 from flask_httpauth import HTTPBasicAuth, HTTPTokenAuth
 from app.models import User
@@ -27,10 +27,12 @@ def get_token():
         'user_id': user_id
         })
 
-@app.route('/api/tokens/revoke/<int:user_id>', methods=['POST'])
-def revoke_token(user_id):
-    # Change this to put user_id in body, not url
-    user = User.query.get_or_404(user_id)
+@app.route('/api/tokens/revoke', methods=['POST'])
+def revoke_token():
+    # Search by the users token, not by id
+    # Otherwise anyone can revoke anyone elses tokens!
+    data = request.get_json() or {}
+    user = User.query.filter(token=data['token'])
     if not user:
         return {"error": "User has no token"}
     user.revoke_token()
