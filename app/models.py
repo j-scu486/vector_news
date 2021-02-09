@@ -45,22 +45,21 @@ class User(db.Model):
     posts = db.relationship('Post', backref='user', lazy='dynamic')
     token = db.Column(db.String(32), index=True, unique=True)
     token_expiration = db.Column(db.DateTime)
-    likes = db.relationship('Like', secondary="likes")
+    liked_posts = db.relationship('Like', secondary="likes")
 
     def add_remove_like(self, post_id):
-        for like in self.likes:
-            if like.post_id == post_id: # Post is already liked, so remove
-                self.likes.remove(like)
-                db.session.commit()
-                return
-
         if not Post.query.get(post_id):
             return {"error": "post not found"}
-        new_like = Like(post_id=post_id)
 
-        self.likes.append(new_like)
-        db.session.add(new_like)
-        db.session.commit()
+        for like in self.liked_posts:
+            if like.post_id == post_id: # Post is already liked, so remove
+                self.liked_posts.remove(like)
+                return {"removed_like_post": like.post_id}
+
+        new_like = Like(post_id=post_id)
+        self.liked_posts.append(new_like)
+
+        return {"liked_post": new_like.post_id}
 
     def get_post_count(self):
         return {"post_count" : Post.query.filter_by(user_id=self.id).count()}
@@ -140,7 +139,7 @@ class Like(db.Model):
     post_id = db.Column(db.ForeignKey('post.id'))
 
     def __repr__(self):
-        return '<Like ID {}>'.format(self.id)
+        return '<Like for PostID {}>'.format(self.post_id)
 
 class Tag(db.Model):
     id = db.Column(db.Integer, primary_key=True)

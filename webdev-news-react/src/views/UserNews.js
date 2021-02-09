@@ -18,7 +18,6 @@ const UserNews = () => {
     }, [])
 
     const fetchUserNews = async () => {
-
         const res = await fetch(`${site}/api/posts`)
         const data = await res.json()
 

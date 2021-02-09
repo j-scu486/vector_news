@@ -45,14 +45,13 @@ def get_all_user_posts(user_id):
 
     return jsonify(data), 200
 
-@app.route('/api/post/create/<int:user_id>', methods=['POST'])
+@app.route('/api/post/create', methods=['POST'])
 @token_auth.login_required
-def create_post(user_id):
-    # Fix to include user id in body of post, not url
+def create_post():
     try:
         data = request.get_json()
     except:
-        return {"error": "Invalid data"}, 400
+        return {"error": "Bad Request"}, 400
     
     new_post = Post()
 
@@ -73,18 +72,22 @@ def create_post(user_id):
 
     new_post.from_dict(data)
 
-    user = User.query.get_or_404(int(user_id))
-    new_post.user_id = int(user_id)
+    user = User.query.filter_by(token=token_auth.current_user().token).first()
+    new_post.user_id = user.id
 
     db.session.add(new_post)
     db.session.commit()
 
     return jsonify(data), 201
 
-@app.route('/api/post/delete/<int:post_id>', methods=['DELETE'])
+@app.route('/api/post/delete', methods=['DELETE'])
 @token_auth.login_required
-def delete_post(post_id):
-    post = Post.query.get(post_id)
+def delete_post():
+    data = request.get_json() or {}
+    try:
+        post = Post.query.get(int(data['post_id']))
+    except:
+        return {"error": "invalid data"}, 400
     user = User.query.filter_by(token=token_auth.current_user().token).first()
     if not post:
         return {"error": "could not find post"}, 400
@@ -110,3 +113,19 @@ def create_user():
     db.session.commit()
 
     return {"email": data['email'], "Location": url_for('get_all_posts')}, 201 # Change location later
+
+@app.route('/api/post/like', methods=['POST'])
+@token_auth.login_required
+def like_post():
+    data = request.get_json() or {}
+    try:
+        post = int(data['post_id'])
+    except:
+        return {"error": "invalid data"}, 400
+
+    user = User.query.filter_by(token=token_auth.current_user().token).first()
+
+    liked_post = user.add_remove_like(post)
+    db.session.commit()
+
+    return jsonify(liked_post)
