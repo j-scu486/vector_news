@@ -31,7 +31,7 @@ const PostModal = ({ updateNews }) => {
         headers.set('Authorization', 'Bearer ' + `${user.token}`)
         headers.set('Content-type', 'application/json')
 
-        fetch(`${site}api/post/create/${user.user_id}`, {
+        fetch(`${site}api/post/create`, {
             method: 'POST',
             headers: headers,
             body: JSON.stringify(postDetails)
@@ -66,7 +66,7 @@ const PostModal = ({ updateNews }) => {
                         type="checkbox" 
                         id="javascript" 
                         onChange={(e) => handleTags(e)}
-                        value="Javascript" 
+                        value="javascript" 
                     />
                     <label>Javascript</label>
                 </div>
