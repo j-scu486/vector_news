@@ -20,7 +20,9 @@ const Header = () => {
     return (
         <header>
             <nav className="nav">
-                <div className="nav__logo"><img src={logo} alt=""/></div>
+                <div className="nav__logo">
+                    <Link to="/"><img src={logo} alt=""/></Link>
+                </div>
                 <div className="nav__links">
                     { user.user_id && <p>Hi, {user.user_id}!</p>}
                     { !user.user_id 
