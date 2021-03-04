@@ -8,6 +8,7 @@ export const Register = () => {
     const site = useContext(WebContext);
     const [registerInfo, setRegisterInfo] = useState({
         'email': '',
+        'username': '',
         'password': ''
     })
     const {user, setUser} = useContext(UserContext)
@@ -19,7 +20,6 @@ export const Register = () => {
             headers: {'Content-type': 'application/json'},
             body: JSON.stringify(registerInfo)
         })
-        .then(res => res.json())
         .then(() => history.push("/"))
     }
 
@@ -27,6 +27,7 @@ export const Register = () => {
         <div>
             <form onSubmit={handleSubmit}>
                 <input type="text" onChange={(e) => setRegisterInfo({...registerInfo, email: e.target.value})} />
+                <input type="text" onChange={(e) => setRegisterInfo({...registerInfo, username: e.target.value})} />
                 <input type="password" onChange={(e) => setRegisterInfo({...registerInfo, password: e.target.value})} />
                 <input type="submit" value="register" />
             </form>
