@@ -54,7 +54,8 @@ const UserNews = () => {
                     classNames="fade"
                     unmountOnExit
                 >
-                    {currentModal === 'newPost' ?
+                    {currentModal === 'newPost' 
+                    ?
                     <Modal 
                         modalType="newPost" 
                         updateNews={updateUserNews} 

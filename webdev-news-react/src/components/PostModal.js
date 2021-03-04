@@ -31,7 +31,6 @@ const PostModal = ({ updateNews }) => {
         headers.set('Authorization', 'Bearer ' + `${user.token}`)
         headers.set('Content-type', 'application/json')
 
-        console.log(headers)
         fetch(`${site}api/post/create/${user.user_id}`, {
             method: 'POST',
             headers: headers,

@@ -103,6 +103,7 @@ def delete_post():
 def create_user():
     data = request.get_json() or {}
     if 'email' not in data or 'password' not in data:
+        print(request.get_json())
         return {"error": "email and password fields are required"}, 400
     if User.query.filter_by(email=data['email']).first():
         return {"error": "this email is already registered"}, 400

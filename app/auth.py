@@ -29,10 +29,8 @@ def get_token():
 
 @app.route('/api/tokens/revoke', methods=['POST'])
 def revoke_token():
-    # Search by the users token, not by id
-    # Otherwise anyone can revoke anyone elses tokens!
     data = request.get_json() or {}
-    user = User.query.filter(token=data['token'])
+    user = User.query.filter_by(token=data['token']).first()
     if not user:
         return {"error": "User has no token"}
     user.revoke_token()

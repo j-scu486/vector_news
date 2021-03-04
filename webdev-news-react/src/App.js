@@ -7,6 +7,7 @@ import Footer from './components/Footer'
 import MainNews from './views/MainNews'
 import UserNews from './views/UserNews'
 import Login from './views/Login'
+import Register from './views/Register'
 import { useState } from 'react'
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
               <Header />
               <Route exact path="/" component={UserNews} />
               <Route path="/login" component={Login} />
+              <Route path="/register" component={Register} />
             </WebContext.Provider>
             <Route path="/main-news" component={MainNews} />
         </Router>

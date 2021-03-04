@@ -8,17 +8,24 @@ const Header = () => {
     const site = useContext(WebContext)
 
     const handleLogout = () => {
-        fetch(`${site}api/tokens/revoke/${user.user_id}`, {
+        fetch(`${site}api/tokens/revoke`, {
             method: 'POST',
-            headers: {'Content-type': 'application/json'}
+            headers: {'Content-type': 'application/json'},
+            body: JSON.stringify({"token": user.token})
         })
         .then(() => setUser({}))
     }
 
     return (
         <header>
-            { user.user_id && <p>Hi, {user.user_id}!</p>}
-            { !user.user_id ? <Link to="/login">Login</Link> : <button onClick={handleLogout}>Logout</button>}
+            <nav>
+                { user.user_id && <p>Hi, {user.user_id}!</p>}
+                { !user.user_id 
+                    ? <Link to="/login">Login</Link>  
+                    : <button onClick={handleLogout}>Logout</button>
+                }
+                {!user.user_id && <Link to="/register">Register</Link>}
+            </nav>
         </header>
     )
 }
