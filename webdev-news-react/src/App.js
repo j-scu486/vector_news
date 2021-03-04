@@ -34,3 +34,11 @@ function App() {
 }
 
 export default App;
+
+// TODO
+
+// Deal with pagination on main page as well as user modal. Maybe a seperate "see more page??"
+// Image upload with register
+// Rankings on side bar (whoever has done the most posts is top). Top 5??
+// Login page: Error handling
+// Register page: Error handling

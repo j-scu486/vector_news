@@ -1,0 +1,14 @@
+.btn {
+    display: flex;
+    align-items: center;
+    margin: 0 5%;
+    padding: .75vw 2vw;
+    font-size: clamp(.6rem, 1.5vw, 1rem);
+    font-weight: 900;
+
+    &--register {
+        border: 2px solid $primary-orange;
+        border-radius: 16px;
+        color: $primary-orange
+    }
+}
