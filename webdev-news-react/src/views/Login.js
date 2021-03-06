@@ -43,11 +43,4 @@ const Login = () => {
     )
 }
 
-// TODO
-
-// Consider storing token in local storage to persist
-// Add ability to upload profile picture
-
-
-
 export default Login

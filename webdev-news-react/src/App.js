@@ -1,4 +1,3 @@
-import './App.css';
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { WebContext } from './webContext'
 import { UserContext } from './userContext'
@@ -7,6 +6,7 @@ import Footer from './components/Footer'
 import MainNews from './views/MainNews'
 import UserNews from './views/UserNews'
 import Login from './views/Login'
+import Register from './views/Register'
 import { useState } from 'react'
 
 function App() {
@@ -23,6 +23,7 @@ function App() {
               <Header />
               <Route exact path="/" component={UserNews} />
               <Route path="/login" component={Login} />
+              <Route path="/register" component={Register} />
             </WebContext.Provider>
             <Route path="/main-news" component={MainNews} />
         </Router>
@@ -33,3 +34,11 @@ function App() {
 }
 
 export default App;
+
+// TODO
+
+// Deal with pagination on main page as well as user modal. Maybe a seperate "see more page??"
+// Image upload with register
+// Rankings on side bar (whoever has done the most posts is top). Top 5??
+// Login page: Error handling
+// Register page: Error handling

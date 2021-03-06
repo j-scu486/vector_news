@@ -37,6 +37,7 @@ const UserNews = () => {
                 return (
                     <li key={index}> 
                         {item.post_title}
+                        <img src={item.post_image} />
                         <button onClick={() => {
                             setModal(true)
                             setuserInfo(`${item.post_user_id}`)
@@ -54,7 +55,8 @@ const UserNews = () => {
                     classNames="fade"
                     unmountOnExit
                 >
-                    {currentModal === 'newPost' ?
+                    {currentModal === 'newPost' 
+                    ?
                     <Modal 
                         modalType="newPost" 
                         updateNews={updateUserNews} 

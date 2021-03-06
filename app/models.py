@@ -3,9 +3,11 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime, timedelta
 from flask import url_for, jsonify
 from app import db
+from webpreview import OpenGraph
 
 import base64
 import os
+ 
 
 tags = db.Table('tags',
     db.Column('tag_id', db.Integer, db.ForeignKey('tag.id'), primary_key=True),
@@ -83,7 +85,7 @@ class User(db.Model):
             return None
         return user
         
-    def set_password(self,password):
+    def set_password(self, password):
         self.password_hash = generate_password_hash(password)
 
     def check_password(self, password):
@@ -104,6 +106,7 @@ class Post(PaginatedAPIMixin, db.Model):
     post_title = db.Column(db.String(140))
     post_description = db.Column(db.String(140))
     post_comment = db.Column(db.String(140))
+    post_image = db.Column(db.String(140))
     post_url = db.Column(db.String(290))
     tags = db.relationship("Tag", secondary=tags)
     created = db.Column(db.DateTime, index=True, default=datetime.utcnow)
@@ -114,6 +117,7 @@ class Post(PaginatedAPIMixin, db.Model):
             'post_user': self.user.username,
             'post_user_id': self.user_id,
             'post_url': self.post_url,
+            'post_image': self.post_image,
             'post_title': self.post_title,
             'post_description': self.post_description,
             'post_comment': self.post_comment,
@@ -131,6 +135,10 @@ class Post(PaginatedAPIMixin, db.Model):
                     self.tags.append(t)
             else:
                 setattr(self, field, data[field])
+        
+        # Handle OG image seperately
+        og = OpenGraph(data['post_url'], ["og:image"])
+        self.post_image = og.image
 
     def __repr__(self):
         return '<Post {}>'.format(self.post_title)

@@ -5,6 +5,9 @@ from app.auth import token_auth, basic_auth
 
 import re
 
+# Regex for EMAIL and WEBSITE
+EMAIL_REGEX = re.compile(r'[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$')
+
 regex = re.compile(
         r'^(?:http|ftp)s?://' # http:// or https://
         r'(?:(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+(?:[A-Z]{2,6}\.?|[A-Z0-9-]{2,}\.?)|' #domain...
@@ -102,12 +105,16 @@ def delete_post():
 @app.route('/api/user/register', methods=['POST'])
 def create_user():
     data = request.get_json() or {}
-    if 'email' not in data or 'password' not in data:
-        return {"error": "email and password fields are required"}, 400
+    if 'email' not in data or 'password' not in data or 'username' not in data:
+        return {"error": "email, username, and password fields are required"}, 400
+    if data['email'] == '' or data['password'] == "" or data["username"] == "":
+        return {"error": "All fields are required"}, 400
+    if not re.match(EMAIL_REGEX, data['email']):
+        return {"error": "Invalid email"}, 400
     if User.query.filter_by(email=data['email']).first():
         return {"error": "this email is already registered"}, 400
 
-    new_user = User(email=data['email'])
+    new_user = User(email=data['email'], username=data['username'])
     new_user.set_password(data['password'])
     db.session.add(new_user)
     db.session.commit()
