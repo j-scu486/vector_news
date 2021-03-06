@@ -3,7 +3,7 @@ from app import app, db
 from flask_httpauth import HTTPBasicAuth, HTTPTokenAuth
 from app.models import User
 
-basic_auth = HTTPBasicAuth()
+basic_auth = HTTPBasicAuth() 
 token_auth = HTTPTokenAuth()
 
 @basic_auth.verify_password
