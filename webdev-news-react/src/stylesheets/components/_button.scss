@@ -5,6 +5,15 @@
     padding: .75vw 2vw;
     font-size: clamp(.6rem, 1.5vw, 1rem);
     font-weight: 900;
+    cursor: pointer;
+
+    &--submit {
+        margin: 15% 0 0;
+        border: 2px solid $primary-orange;
+        border-radius: 5px;
+        color: #fff;
+        background: $primary-orange;
+    }
 
     &--register {
         border: 2px solid $primary-orange;

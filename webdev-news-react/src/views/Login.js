@@ -24,6 +24,7 @@ const Login = () => {
         .then(res => res.json())
         .then(res => {
             setUser({
+                username: res.username,
                 token: res.token,
                 user_id: res.user_id
             })
@@ -33,12 +34,16 @@ const Login = () => {
     }
 
     return (
-        <div>
-            <form onSubmit={handleSubmit}>
-                <input type="text" onChange={(e) => setloginInfo({...loginInfo, email: e.target.value})} />
-                <input type="password" onChange={(e) => setloginInfo({...loginInfo, password: e.target.value})} />
-                <input type="submit" value="login" />
-            </form>
+        <div id="login">
+            <div className="container">
+                <form className="form form--login" onSubmit={handleSubmit}>
+                    <label htmlFor="email">Email</label>
+                    <input className="form__input" type="text" id="email" onChange={(e) => setloginInfo({...loginInfo, email: e.target.value})} />
+                    <label htmlFor="password">Password</label>
+                    <input className="form__input" type="password" htmlFor="password" onChange={(e) => setloginInfo({...loginInfo, password: e.target.value})} />
+                    <input className="btn btn--submit" type="submit" value="Login" />
+                </form>
+            </div>
         </div>
     )
 }

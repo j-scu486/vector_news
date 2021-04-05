@@ -21,8 +21,10 @@ def verify_token(token):
 def get_token():
     token = basic_auth.current_user().create_token()
     user_id = basic_auth.current_user().id
+    username = basic_auth.current_user().username
     db.session.commit()
     return jsonify({
+        'username': username,
         'token': token,
         'user_id': user_id
         })

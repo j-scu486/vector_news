@@ -12,6 +12,7 @@ import { useState } from 'react'
 function App() {
   const [user, setUser] = useState({
     'token': '',
+    'username': '',
     'user_id': ''
   })
 
@@ -42,3 +43,5 @@ export default App;
 // Rankings on side bar (whoever has done the most posts is top). Top 5??
 // Login page: Error handling
 // Register page: Error handling
+// Filter functionality
+// Like functionality (front-end)

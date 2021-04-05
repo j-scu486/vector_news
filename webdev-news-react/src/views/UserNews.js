@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from 'react'
 import { CSSTransition } from 'react-transition-group';
 import { WebContext } from '../webContext'
 import { UserContext } from '../userContext'
+import MenuBar from '../components/MenuBar'
 import Modal from '../components/Modal'
 
 const UserNews = () => {
@@ -30,20 +31,21 @@ const UserNews = () => {
     }
     
     return (
-        <div>
+        <div id="usernews">
+            <MenuBar />
             <div onClick={() => {setModal(!modal)}} className={  `modal-container ${modal ? 'modal-active' : ''}`} ></div>
-            <ul>
+            <ul className="container">
             {news.map((item, index) => {
                 return (
-                    <li key={index}> 
-                        {item.post_title}
+                    <li className="card" key={index}> 
                         <img src={item.post_image} />
-                        <button onClick={() => {
+                        <h3 className="card__title">{item.post_title}</h3>
+                        <p className="card__description">"{item.post_description}"</p>
+                        <button className="btn btn--card" onClick={() => {
                             setModal(true)
                             setuserInfo(`${item.post_user_id}`)
                             setcurrentModal('userInfo')
                         }}>
-                            {item.post_user}
                         </button>
                     </li>
                 )

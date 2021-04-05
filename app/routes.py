@@ -59,8 +59,6 @@ def create_post():
     new_post = Post()
 
     # Validate data
-    if 'post_title' not in data:
-        return {"error": "Post title is required"}, 400
     if 'tags' not in data:
         return {"error": "Tags are required"}, 400
     if 'post_url' not in data:

@@ -5,7 +5,6 @@ import { UserContext } from '../userContext'
 
 const PostModal = ({ updateNews }) => {
     const [postDetails, setpostDetails] = useState({
-        'post_title': '',
         'post_description': '',
         'tags': '',
         'post_url': ''
@@ -49,8 +48,6 @@ const PostModal = ({ updateNews }) => {
                 <input type="text" onChange={(e) => setpostDetails({...postDetails, post_url: e.target.value})} />
                 <label>Post Description</label>
                 <input type="text" onChange={(e) => setpostDetails({...postDetails, post_description: e.target.value})} />
-                <label>Post Title</label>
-                <input type="text" onChange={(e) => setpostDetails({...postDetails, post_title: e.target.value})} />
 
                 <div>
                     <input 
@@ -59,7 +56,7 @@ const PostModal = ({ updateNews }) => {
                         onChange={(e) => handleTags(e)}
                         value="html" 
                     />
-                    <label>html</label>
+                    <label>HTML</label>
                 </div>
                 <div>
                     <input 

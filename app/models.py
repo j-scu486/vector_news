@@ -81,7 +81,7 @@ class User(db.Model):
     @staticmethod
     def check_token(token):
         user = User.query.filter_by(token=token).first()
-        if User is None or user.token_expiration < datetime.utcnow():
+        if user is None or user.token_expiration < datetime.utcnow():
             return None
         return user
         
@@ -135,9 +135,10 @@ class Post(PaginatedAPIMixin, db.Model):
             else:
                 setattr(self, field, data[field])
         
-        # Handle OG image seperately
-        og = OpenGraph(data['post_url'], ["og:image"])
+        # Handle OG fields seperately
+        og = OpenGraph(data['post_url'], ["og:image", "og:title"])
         self.post_image = og.image
+        self.post_title = og.title
 
     def __repr__(self):
         return '<Post {}>'.format(self.post_title)

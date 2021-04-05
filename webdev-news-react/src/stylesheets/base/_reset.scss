@@ -31,6 +31,13 @@ body {
     line-height:1;
 }
 
+button {
+    border: none;
+    background-color: #fff;
+    font-weight: 400;
+    cursor: pointer;
+}
+
 article,aside,details,figcaption,figure,
 footer,header,hgroup,menu,nav,section {
     display:block;
@@ -110,4 +117,8 @@ img {
     vertical-align: middle;
     user-select: none;
     object-fit: cover;
+  }
+
+  li {
+      list-style: none;
   }
