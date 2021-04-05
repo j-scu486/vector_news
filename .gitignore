@@ -28,3 +28,5 @@ pyvenv.cfg
 /webdev-news-react/npm-debug.log*
 /webdev-news-react/yarn-debug.log*
 /webdev-news-react/yarn-error.log*
+
+/__pycache__
