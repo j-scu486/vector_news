@@ -20,7 +20,7 @@ regex = re.compile(
 @app.route('/api/posts', methods=['GET'])
 def get_all_posts():
     page = request.args.get('page', 1, type=int)
-    per_page = 5
+    per_page = 10
     data = Post.to_collection_dict(Post.query, page, per_page, 'get_all_posts')
 
     return jsonify(data), 200

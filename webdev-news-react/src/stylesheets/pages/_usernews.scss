@@ -12,4 +12,34 @@
         font-weight: bold;
         font-size: 2rem;
     }
+
+    .loading {
+        display: flex;
+        margin: 50px auto;
+        padding-bottom: 500px;
+        
+        &__circle {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background-color: $primary-orange;
+            margin: 0 3px;
+
+            @for $i from 1 through 3 {
+                &--#{$i} {
+                    animation: loadingCircle .3s ease #{$i * 0.1}s infinite alternate;
+                }
+              }
+        }
+    }
+
+    @keyframes loadingCircle {
+        from {
+            transform: translateY(0);
+        }
+        to {
+            transform: translateY(-10px);
+
+        }
+    }
 }

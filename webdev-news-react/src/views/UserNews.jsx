@@ -4,7 +4,7 @@ import { WebContext } from '../webContext'
 import { UserContext } from '../userContext'
 import MenuBar from '../components/MenuBar'
 import Modal from '../components/Modal'
-import Card from '../components/Card'
+import NewsCard from '../components/NewsCard'
 
 const UserNews = () => {
     const [news, setNews] = useState([])
@@ -56,20 +56,26 @@ const UserNews = () => {
             />
             <div onClick={() => {setModal(!modal)}} className={`modal-container ${modal ? 'modal-active' : ''}`} ></div>
             <ul className="container">
-            {filteredNews.map((item, index) => {
-                return (
-                    <Card 
-                        key={index}
-                        item={item}
-                        setModal={setModal}
-                        setuserInfo={setuserInfo}
-                        setcurrentModal={setcurrentModal}
-                    />
-                )
-            })}
-            {!filteredNews.length && <p className="emptyResults">No results! :{'('}</p>}
+                {filteredNews.map((item, index) => {
+                    return (
+                        <NewsCard 
+                            key={index}
+                            item={item}
+                            setModal={setModal}
+                            setuserInfo={setuserInfo}
+                            setcurrentModal={setcurrentModal}
+                        />
+                    )
+                })}
+                {!filteredNews.length &&                 
+                <div className="loading">
+                    <div className="loading__circle loading__circle--1"></div>
+                    <div className="loading__circle loading__circle--2"></div>
+                    <div className="loading__circle loading__circle--3"></div>
+                </div>}
             </ul>
             <div>
+
                 {prevPage && <button className="btn btn--pagination" onClick={() => updateUserNews(prevPage)}>Prev Page</button>}
                 {nextPage && <button className="btn btn--pagination" onClick={() => updateUserNews(nextPage)}>Next Page</button>}
             </div>
