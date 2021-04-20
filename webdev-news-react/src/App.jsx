@@ -16,11 +16,19 @@ function App() {
     'user_id': ''
   })
 
+  let BASE_URL
+
+  if (process.env.NODE_ENV === 'development') {
+    BASE_URL = process.env.REACT_APP_BASE_URL
+  } else {
+    BASE_URL = '' 
+  }
+
   return (
     <div className="App">
       <UserContext.Provider value={{ user, setUser }}>
         <Router>
-            <WebContext.Provider value="http://127.0.0.1:5000/">
+            <WebContext.Provider value={BASE_URL}>
               <Header />
               <Route exact path="/" component={UserNews} />
               <Route path="/login" component={Login} />

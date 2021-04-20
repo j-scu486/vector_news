@@ -11,7 +11,6 @@ export const MenuBar = ({ setfilteredNews, setnextPage, setprevPage }) => {
         setnextPage(data._links.next)
         setprevPage(data._links.prev)
         setfilteredNews([...data.items])
-
     }
     
     return (

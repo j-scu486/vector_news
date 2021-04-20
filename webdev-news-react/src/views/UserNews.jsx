@@ -75,7 +75,6 @@ const UserNews = () => {
                 </div>}
             </ul>
             <div>
-
                 {prevPage && <button className="btn btn--pagination" onClick={() => updateUserNews(prevPage)}>Prev Page</button>}
                 {nextPage && <button className="btn btn--pagination" onClick={() => updateUserNews(nextPage)}>Next Page</button>}
             </div>

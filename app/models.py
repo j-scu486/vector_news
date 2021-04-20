@@ -56,8 +56,11 @@ class User(db.Model):
         for like in self.liked_posts:
             if like.post_id == post_id: # Post is already liked, so remove
                 self.liked_posts.remove(like)
-                return {"removed_like_post": like.post_id}
+                post_like = Like.query.filter_by(post_id=post_id).first()
+                db.session.delete(post_like)
 
+                return {"removed_like_post": like.post_id}
+                
         new_like = Like(post_id=post_id)
         self.liked_posts.append(new_like)
 
@@ -122,10 +125,14 @@ class Post(PaginatedAPIMixin, db.Model):
             'post_description': self.post_description,
             'post_comment': self.post_comment,
             'tags': [tag.tag_name for tag in self.tags],
+            'like_count': self.get_like_count(),
             'date_created': self.created
         }
 
         return data
+
+    def get_like_count(self):
+        return Like.query.filter_by(post_id=self.id).count()
 
     def from_dict(self, data):
         for field in data:
@@ -150,7 +157,12 @@ class Post(PaginatedAPIMixin, db.Model):
 
 class Like(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    # Add field to show who owns the like
     post_id = db.Column(db.ForeignKey('post.id'))
+
+    # Add classmethod to query class and filter by post_id
+    # Get all posts from this
+    # Return list that has all the users that liked the post
 
     def __repr__(self):
         return '<Like for PostID {}>'.format(self.post_id)
