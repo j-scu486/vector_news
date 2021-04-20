@@ -11,6 +11,7 @@ export const Register = () => {
         'username': '',
         'password': ''
     })
+    const [error, setError] = useState('')
     const {user, setUser} = useContext(UserContext)
 
     const handleSubmit = (e) => {
@@ -20,12 +21,23 @@ export const Register = () => {
             headers: {'Content-type': 'application/json'},
             body: JSON.stringify(registerInfo)
         })
-        .then(() => history.push("/"))
+        .then(res => res.json())
+        .then(res => {
+            if (res.error) {
+                setError({
+                    "message": res.error
+                })
+            } else {
+                history.push("/")
+            }
+        })
+
     }
 
     return (
         <div id="register">
             <div className="container">
+                {error && <p>{error.message}</p>}
                 <form className="form form--register" onSubmit={handleSubmit}>
                     <label htmlFor="email">Email</label>
                     <input className="form__input" id="email" type="text" onChange={(e) => setRegisterInfo({...registerInfo, email: e.target.value})} />

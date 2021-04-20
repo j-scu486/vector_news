@@ -4,5 +4,12 @@
         display: flex;
         flex-wrap: wrap;
         margin: 0 10%;
+
+    }
+
+    .emptyResults {
+        margin: 100px auto;
+        font-weight: bold;
+        font-size: 2rem;
     }
 }

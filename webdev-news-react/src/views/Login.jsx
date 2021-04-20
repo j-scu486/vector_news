@@ -10,6 +10,7 @@ const Login = () => {
         'email': '',
         'password': ''
     })
+    const [error, setError] = useState('')
     const {user, setUser} = useContext(UserContext)
 
     const handleSubmit = (e) => {
@@ -21,21 +22,30 @@ const Login = () => {
             method: 'POST',
             headers: headers
         })
-        .then(res => res.json())
-        .then(res => {
-            setUser({
-                username: res.username,
-                token: res.token,
-                user_id: res.user_id
-            })
+        .then(res =>  {
+            if (res.ok) {
+                return res.json()
+            }
         })
-        .then(() => history.push("/"))
-        
+        .then(res => {
+            if (res !== undefined) {
+                setUser({
+                    username: res.username,
+                    token: res.token,
+                    user_id: res.user_id
+                })
+                history.push("/")
+            }
+            else {
+                setError({"message": "Invalid username or password"})
+            }
+        })        
     }
 
     return (
         <div id="login">
             <div className="container">
+                {error && <p>{error.message}</p>}
                 <form className="form form--login" onSubmit={handleSubmit}>
                     <label htmlFor="email">Email</label>
                     <input className="form__input" type="text" id="email" onChange={(e) => setloginInfo({...loginInfo, email: e.target.value})} />

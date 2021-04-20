@@ -141,6 +141,10 @@ class Post(PaginatedAPIMixin, db.Model):
         self.post_image = og.image
         self.post_title = og.title
 
+    @classmethod
+    def get_by_tag_name(cls, tag):
+        return cls.query.filter(cls.tags.any(Tag.tag_name == tag))
+
     def __repr__(self):
         return '<Post {}>'.format(self.post_title)
 

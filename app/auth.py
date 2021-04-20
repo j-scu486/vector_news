@@ -6,6 +6,10 @@ from app.models import User
 basic_auth = HTTPBasicAuth() 
 token_auth = HTTPTokenAuth()
 
+@basic_auth.error_handler
+def auth_error(status):
+    return {"error": "Invalid username or password"}, status
+
 @basic_auth.verify_password
 def verify_password(email, password):
     user = User.query.filter_by(email=email).first()

@@ -3,7 +3,7 @@ import { useState, useContext } from 'react'
 import { WebContext } from '../webContext'
 import { UserContext } from '../userContext'
 
-const PostModal = ({ updateNews }) => {
+const PostModal = ({ updateNews, setModal }) => {
     const [postDetails, setpostDetails] = useState({
         'post_description': '',
         'tags': '',
@@ -35,8 +35,13 @@ const PostModal = ({ updateNews }) => {
             headers: headers,
             body: JSON.stringify(postDetails)
         })
-        .then(() => {
-            updateNews()
+        .then(res => {
+            if (res.ok) {
+                updateNews()
+                setModal(false)
+            } else {
+                console.log("Some error...")
+            }
         })
         
     }
@@ -66,6 +71,15 @@ const PostModal = ({ updateNews }) => {
                         value="javascript" 
                     />
                     <label>Javascript</label>
+                </div>
+                <div>
+                    <input 
+                        type="checkbox" 
+                        id="css" 
+                        onChange={(e) => handleTags(e)}
+                        value="css" 
+                    />
+                    <label>css</label>
                 </div>
                 <input type="submit" value="submit" />
             </form>

@@ -1,21 +1,24 @@
-import { useState, useEffect } from 'react'
+import { useContext } from 'react'
+import { WebContext } from '../webContext'
 
-export const MenuBar = () => {
-    const [filter, setFilter] = useState([])
+export const MenuBar = ({ setfilteredNews, setnextPage, setprevPage }) => {
+    const site = useContext(WebContext)
 
-    const handleFilters = (e) => {
-        console.log(e.target.innerText)
+    const handleFilters = async (e) => {
+        let res = await fetch(`${site}api/posts/${e.target.innerText}`)
+        let data = await res.json()
+
+        setnextPage(data._links.next)
+        setprevPage(data._links.prev)
+        setfilteredNews([...data.items])
+
     }
     
-    useEffect(() => {
-        console.log("changed detected")
-    })
-
-
     return (
         <div>
-            <button onClick={handleFilters}>Javascript</button>
-            <button>HTML</button>
+            <button onClick={handleFilters}>javascript</button>
+            <button onClick={handleFilters}>html</button>
+            <button onClick={handleFilters}>css</button>
         </div>
     )
 }

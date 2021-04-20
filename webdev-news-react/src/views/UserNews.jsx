@@ -4,12 +4,18 @@ import { WebContext } from '../webContext'
 import { UserContext } from '../userContext'
 import MenuBar from '../components/MenuBar'
 import Modal from '../components/Modal'
+import Card from '../components/Card'
 
 const UserNews = () => {
     const [news, setNews] = useState([])
+    const [filteredNews, setfilteredNews] = useState([])
     const [modal, setModal] = useState(false)
     const [userInfo, setuserInfo] = useState('')
     const [currentModal, setcurrentModal] = useState('')
+
+    // Pagination
+    const [nextPage, setnextPage] = useState('')
+    const [prevPage, setprevPage] = useState('')
 
     const site = useContext(WebContext)
     const {user, setUser} = useContext(UserContext)
@@ -18,39 +24,55 @@ const UserNews = () => {
         updateUserNews()
     }, [])
 
-    const fetchUserNews = async () => {
-        const res = await fetch(`${site}/api/posts`)
+    const fetchUserNews = async (page) => {
+        let res
+
+        if (page) {
+            res = await fetch(`${site}${page}`)
+        } else {
+            res = await fetch(`${site}api/posts`)
+        }
+
         const data = await res.json()
+        setnextPage(data._links.next)
+        setprevPage(data._links.prev)
 
         return data.items
     }
 
-    const updateUserNews = async () => {
-        const results = await fetchUserNews()
+    const updateUserNews = async (page) => {
+        const results = await fetchUserNews(page)
         setNews([...results])
+        setfilteredNews([...results])
     }
     
     return (
         <div id="usernews">
-            <MenuBar />
-            <div onClick={() => {setModal(!modal)}} className={  `modal-container ${modal ? 'modal-active' : ''}`} ></div>
+            <MenuBar 
+                news={news}
+                setfilteredNews={setfilteredNews}
+                setnextPage={setnextPage}
+                setprevPage={setprevPage}
+            />
+            <div onClick={() => {setModal(!modal)}} className={`modal-container ${modal ? 'modal-active' : ''}`} ></div>
             <ul className="container">
-            {news.map((item, index) => {
+            {filteredNews.map((item, index) => {
                 return (
-                    <li className="card" key={index}> 
-                        <img src={item.post_image} />
-                        <h3 className="card__title">{item.post_title}</h3>
-                        <p className="card__description">"{item.post_description}"</p>
-                        <button className="btn btn--card" onClick={() => {
-                            setModal(true)
-                            setuserInfo(`${item.post_user_id}`)
-                            setcurrentModal('userInfo')
-                        }}>
-                        </button>
-                    </li>
+                    <Card 
+                        key={index}
+                        item={item}
+                        setModal={setModal}
+                        setuserInfo={setuserInfo}
+                        setcurrentModal={setcurrentModal}
+                    />
                 )
             })}
+            {!filteredNews.length && <p className="emptyResults">No results! :{'('}</p>}
             </ul>
+            <div>
+                {prevPage && <button className="btn btn--pagination" onClick={() => updateUserNews(prevPage)}>Prev Page</button>}
+                {nextPage && <button className="btn btn--pagination" onClick={() => updateUserNews(nextPage)}>Next Page</button>}
+            </div>
                 <CSSTransition
                     in={modal}
                     timeout={300}
@@ -61,7 +83,8 @@ const UserNews = () => {
                     ?
                     <Modal 
                         modalType="newPost" 
-                        updateNews={updateUserNews} 
+                        updateNews={updateUserNews}
+                        setModal={setModal}
                         onClose={() => setModal(false)} 
                     />
                     :
