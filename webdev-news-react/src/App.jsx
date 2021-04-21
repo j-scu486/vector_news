@@ -1,13 +1,14 @@
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { WebContext } from './webContext'
 import { UserContext } from './userContext'
+import { MessageContext } from './messageContext'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import MainNews from './views/MainNews'
 import UserNews from './views/UserNews'
 import Login from './views/Login'
 import Register from './views/Register'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 function App() {
   const [user, setUser] = useState({
@@ -15,6 +16,17 @@ function App() {
     'username': '',
     'user_id': ''
   })
+
+  const [message, setMessage] = useState({
+    message: '',
+    messageType: ''
+  })
+
+  useEffect(() => {
+    setTimeout(function(){ 
+      setMessage('') 
+    }, 3000);
+  }, [message])
 
   let BASE_URL
 
@@ -26,6 +38,7 @@ function App() {
 
   return (
     <div className="App">
+      <MessageContext.Provider value={{ message, setMessage }}>
       <UserContext.Provider value={{ user, setUser }}>
         <Router>
             <WebContext.Provider value={BASE_URL}>
@@ -38,6 +51,7 @@ function App() {
         </Router>
       <Footer />
       </UserContext.Provider>
+      </MessageContext.Provider>
     </div>
   );
 }

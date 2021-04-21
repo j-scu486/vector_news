@@ -2,7 +2,9 @@ import { useState, useEffect, useContext } from 'react'
 import { CSSTransition } from 'react-transition-group';
 import { WebContext } from '../webContext'
 import { UserContext } from '../userContext'
+import { MessageContext } from '../messageContext'
 import MenuBar from '../components/MenuBar'
+import Message from '../components/Message'
 import Modal from '../components/Modal'
 import NewsCard from '../components/NewsCard'
 
@@ -18,7 +20,8 @@ const UserNews = () => {
     const [prevPage, setprevPage] = useState('')
 
     const site = useContext(WebContext)
-    const {user, setUser} = useContext(UserContext)
+    const {user} = useContext(UserContext)
+    const {message, setMessage} = useContext(MessageContext)
 
     useEffect(() => {
         updateUserNews()
@@ -49,6 +52,7 @@ const UserNews = () => {
     
     return (
         <div id="usernews">
+            <Message />
             <MenuBar 
                 news={news}
                 setfilteredNews={setfilteredNews}
@@ -109,7 +113,6 @@ const UserNews = () => {
                     }}>Add Post
                 </button>
             }
-
         </div>
     )
 }

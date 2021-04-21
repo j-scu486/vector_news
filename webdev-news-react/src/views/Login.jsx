@@ -1,7 +1,9 @@
 import { useState, useContext } from 'react'
 import { WebContext } from '../webContext'
 import { UserContext } from '../userContext'
+import { MessageContext } from '../messageContext'
 import { useHistory } from "react-router-dom";
+import Message from '../components/Message'
 
 const Login = () => {
     let history = useHistory();
@@ -10,8 +12,8 @@ const Login = () => {
         'email': '',
         'password': ''
     })
-    const [error, setError] = useState('')
     const {user, setUser} = useContext(UserContext)
+    const {setMessage} = useContext(MessageContext)
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -34,18 +36,25 @@ const Login = () => {
                     token: res.token,
                     user_id: res.user_id
                 })
+                setMessage({
+                    message: `Welcome back ${res.username}!`,
+                    messageType: "success"
+                })
                 history.push("/")
             }
             else {
-                setError({"message": "Invalid username or password"})
+                setMessage({
+                    message: "Invalid username or password",
+                    messageType: "error"
+                })
             }
         })        
     }
 
     return (
         <div id="login">
+            <Message />
             <div className="container">
-                {error && <p>{error.message}</p>}
                 <form className="form form--login" onSubmit={handleSubmit}>
                     <label htmlFor="email">Email</label>
                     <input className="form__input" type="text" id="email" onChange={(e) => setloginInfo({...loginInfo, email: e.target.value})} />
