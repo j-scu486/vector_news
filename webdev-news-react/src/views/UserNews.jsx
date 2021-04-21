@@ -45,6 +45,7 @@ const UserNews = () => {
         setNews([...results])
         setfilteredNews([...results])
     }
+
     
     return (
         <div id="usernews">

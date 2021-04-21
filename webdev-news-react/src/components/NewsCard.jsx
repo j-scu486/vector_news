@@ -1,10 +1,11 @@
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { WebContext } from '../webContext'
 import { UserContext } from '../userContext'
 
 
 export default function Card({ item, setModal, setuserInfo, setcurrentModal }) {
     const site = useContext(WebContext)
+    const [likeList, setLikeList] = useState(item.users_liked) // To dynamically show likes without making another api call
     const { user } = useContext(UserContext)
 
     let headers = new Headers()
@@ -17,8 +18,17 @@ export default function Card({ item, setModal, setuserInfo, setcurrentModal }) {
             headers: headers,
             body: JSON.stringify({ "post_id": `${id}`})
         })
-        .then(res => res.json())
-        .then(res => console.log(res))
+        .then(() => {
+            let array = [...likeList]
+            const index = likeList.indexOf(user.username)
+
+            if (index > -1) {
+                array.splice(index, 1)
+            } else {
+                array.push(user.username)
+            }
+            setLikeList(array)
+        })
     }
 
     return (
@@ -26,15 +36,17 @@ export default function Card({ item, setModal, setuserInfo, setcurrentModal }) {
             <img src={item.post_image} />
             <h3 className="card__title">{item.post_title}</h3>
             <p className="card__description">"{item.post_description}"</p>
-            <p>{item.like_count}</p>
+            <p>{likeList.length}</p>
             <button className="btn--card" onClick={() => {
                 setModal(true)
                 setuserInfo(`${item.post_user_id}`)
                 setcurrentModal('userInfo')
             }}>
-                user
+                {item.post_user}
             </button>
-            <button onClick={() => addRemoveLike(item.id)}>Like</button>
+            {user.token && <button onClick={() => addRemoveLike(item.id)}>
+                {likeList.includes(user.username) ? 'Unlike' : 'Like'}
+            </button>}
         </li>
     )
 }

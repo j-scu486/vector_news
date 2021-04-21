@@ -1,6 +1,6 @@
 from flask import jsonify, redirect, url_for, request
 from app import app, db
-from app.models import User, Post, Tag
+from app.models import User, Post, Tag, Like
 from app.auth import token_auth, basic_auth
 
 import re
@@ -138,8 +138,8 @@ def like_post():
         return {"error": "invalid data"}, 400
 
     user = User.query.filter_by(token=token_auth.current_user().token).first()
-
     liked_post = user.add_remove_like(post)
+
     db.session.commit()
 
     return jsonify(liked_post)

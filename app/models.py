@@ -47,6 +47,7 @@ class User(db.Model):
     posts = db.relationship('Post', backref='user', lazy='dynamic')
     token = db.Column(db.String(32), index=True, unique=True)
     token_expiration = db.Column(db.DateTime)
+    like = db.relationship('Like', backref='user')
     liked_posts = db.relationship('Like', secondary="likes")
 
     def add_remove_like(self, post_id):
@@ -61,7 +62,7 @@ class User(db.Model):
 
                 return {"removed_like_post": like.post_id}
                 
-        new_like = Like(post_id=post_id)
+        new_like = Like(post_id=post_id, user_liked=self.id)
         self.liked_posts.append(new_like)
 
         return {"liked_post": new_like.post_id}
@@ -125,7 +126,7 @@ class Post(PaginatedAPIMixin, db.Model):
             'post_description': self.post_description,
             'post_comment': self.post_comment,
             'tags': [tag.tag_name for tag in self.tags],
-            'like_count': self.get_like_count(),
+            'users_liked': Like.get_liked_users(post_id=self.id),
             'date_created': self.created
         }
 
@@ -157,12 +158,12 @@ class Post(PaginatedAPIMixin, db.Model):
 
 class Like(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    # Add field to show who owns the like
+    user_liked = db.Column(db.ForeignKey('user.id'))
     post_id = db.Column(db.ForeignKey('post.id'))
 
-    # Add classmethod to query class and filter by post_id
-    # Get all posts from this
-    # Return list that has all the users that liked the post
+    @classmethod
+    def get_liked_users(cls, post_id):
+        return [like.user.username for like in cls.query.filter_by(post_id=post_id)]
 
     def __repr__(self):
         return '<Like for PostID {}>'.format(self.post_id)

@@ -51,4 +51,3 @@ export default App;
 // Image upload with register
 // Site-wide messages (eg, you added a post! etc)
 // Rankings on side bar (whoever has done the most posts is top). Top 5??
-// Like functionality (front-end)

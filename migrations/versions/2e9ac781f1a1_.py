@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 69b17822ed71
+Revision ID: 2e9ac781f1a1
 Revises: 
-Create Date: 2021-02-09 17:27:02.333011
+Create Date: 2021-04-21 10:16:41.442480
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '69b17822ed71'
+revision = '2e9ac781f1a1'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -41,6 +41,7 @@ def upgrade():
     sa.Column('post_title', sa.String(length=140), nullable=True),
     sa.Column('post_description', sa.String(length=140), nullable=True),
     sa.Column('post_comment', sa.String(length=140), nullable=True),
+    sa.Column('post_image', sa.String(length=140), nullable=True),
     sa.Column('post_url', sa.String(length=290), nullable=True),
     sa.Column('created', sa.DateTime(), nullable=True),
     sa.ForeignKeyConstraint(['user_id'], ['user.id'], ),
@@ -49,8 +50,10 @@ def upgrade():
     op.create_index(op.f('ix_post_created'), 'post', ['created'], unique=False)
     op.create_table('like',
     sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('user_liked', sa.Integer(), nullable=True),
     sa.Column('post_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['post_id'], ['post.id'], ),
+    sa.ForeignKeyConstraint(['user_liked'], ['user.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('tags',
