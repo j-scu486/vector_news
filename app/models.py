@@ -1,7 +1,7 @@
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime, timedelta
-from flask import url_for, jsonify
+from flask import url_for, jsonify, request
 from app import db
 from webpreview import OpenGraph
 
@@ -47,6 +47,7 @@ class User(db.Model):
     posts = db.relationship('Post', backref='user', lazy='dynamic')
     token = db.Column(db.String(32), index=True, unique=True)
     token_expiration = db.Column(db.DateTime)
+    image_filepath = db.Column(db.String(128))
     like = db.relationship('Like', backref='user')
     liked_posts = db.relationship('Like', secondary="likes")
 
@@ -95,11 +96,14 @@ class User(db.Model):
     def check_password(self, password):
         return  check_password_hash(self.password_hash, password)
 
-    # TODO
-    def to_dict(self):
-        data = {}
+    def get_avatar(self):
+        return f"{request.url_root}static/avatars/{self.image_filepath}"
 
-        return data
+    # TODO
+    # def to_dict(self):
+    #     data = {}
+
+    #     return data
 
     def __repr__(self):
         return '<User {}>'.format(self.username)
@@ -119,6 +123,7 @@ class Post(PaginatedAPIMixin, db.Model):
         data = {
             'id': self.id,
             'post_user': self.user.username,
+            'post_user_image': self.user.get_avatar(),
             'post_user_id': self.user_id,
             'post_url': self.post_url,
             'post_image': self.post_image,

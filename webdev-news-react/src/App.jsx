@@ -60,8 +60,5 @@ export default App;
 
 // TODO
 
-// Deal with pagination on user modal. Maybe a seperate "see more page??"
-// Add user profile page (this is tied to pagination above)
 // Image upload with register
-// Site-wide messages (eg, you added a post! etc)
 // Rankings on side bar (whoever has done the most posts is top). Top 5??

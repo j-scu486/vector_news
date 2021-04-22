@@ -31,6 +31,7 @@ const Login = () => {
         })
         .then(res => {
             if (res !== undefined) {
+                console.log(res)
                 setUser({
                     username: res.username,
                     token: res.token,

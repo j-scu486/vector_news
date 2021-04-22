@@ -7,6 +7,7 @@ export default function Card({ item, setModal, setuserInfo, setcurrentModal }) {
     const site = useContext(WebContext)
     const [likeList, setLikeList] = useState(item.users_liked) // To dynamically show likes without making another api call
     const { user } = useContext(UserContext)
+    console.log(item)
 
     let headers = new Headers()
     headers.set('Authorization', 'Bearer ' + `${user.token}`)
@@ -42,6 +43,9 @@ export default function Card({ item, setModal, setuserInfo, setcurrentModal }) {
                 setuserInfo(`${item.post_user_id}`)
                 setcurrentModal('userInfo')
             }}>
+            <div className="card__avatar">
+                <img src={item.post_user_image} />
+            </div>
                 {item.post_user}
             </button>
             {user.token && <button onClick={() => addRemoveLike(item.id)}>

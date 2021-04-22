@@ -30,7 +30,7 @@ def get_token():
     return jsonify({
         'username': username,
         'token': token,
-        'user_id': user_id
+        'user_id': user_id,
         })
 
 @app.route('/api/tokens/revoke', methods=['POST'])

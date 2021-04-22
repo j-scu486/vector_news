@@ -2,8 +2,9 @@ from flask import jsonify, redirect, url_for, request
 from app import app, db
 from app.models import User, Post, Tag, Like
 from app.auth import token_auth, basic_auth
+from app.utils import check_image
 
-import re
+import re, os
 
 # Regex for EMAIL and WEBSITE
 EMAIL_REGEX = re.compile(r'[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$')
@@ -121,12 +122,24 @@ def create_user():
     if User.query.filter_by(email=data['email']).first():
         return {"error": "this email is already registered"}, 400
 
-    new_user = User(email=data['email'], username=data['username'])
+    image_file = check_image(data['image_file'])
+    new_user = User(email=data['email'], username=data['username'], image_filepath=image_file)
     new_user.set_password(data['password'])
     db.session.add(new_user)
     db.session.commit()
 
     return {"email": data['email'], "Location": url_for('get_all_posts')}, 201 # Change location later
+
+@app.route('/api/user/register/image', methods=['POST'])
+def handle_user_image():
+    data = request.files['file']
+
+    uploaded_file = data
+    image_file = check_image(uploaded_file.filename)
+
+    uploaded_file.save(os.path.join('app/static/avatars', image_file))
+
+    return {"message": "image uploaded"}, 201
 
 @app.route('/api/post/like', methods=['POST'])
 @token_auth.login_required
