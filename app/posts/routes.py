@@ -1,7 +1,7 @@
 from flask import jsonify, redirect, url_for, request
 from app import db
 from app.posts import bp
-from app.models import User,  Post, Tag, Like
+from app.models import User, Post, Tag, Like
 from app.auth.auth import token_auth, basic_auth
 from app.utils.utils import check_image, EMAIL_REGEX, regex
 

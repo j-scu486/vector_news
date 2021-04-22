@@ -39,8 +39,12 @@ const PostModal = ({ updateNews, setModal }) => {
             if (res.ok) {
                 updateNews()
                 setModal(false)
+            } else if (res.status === 400) {
+                console.log("Invalid URL")
+            } else if (res.status === 401) {
+                console.log("Session expired. Please login again")
             } else {
-                console.log("Some error...")
+                console.log("Some error occured")
             }
         })
         

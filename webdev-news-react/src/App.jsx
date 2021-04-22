@@ -61,5 +61,7 @@ export default App;
 // TODO
 
 // Fix registration so that a user is automatically logged in after registering
+// Add ability for users to delete their own posts
+// Add ability for users to edit their own posts
 // set pagination to properly work on user modal
-// Rankings on side bar (whoever has done the most posts is top). Top 5??
+// Rankings on side bar (whoever has done the most posts is top). Top 5?? (might need redis for this)
