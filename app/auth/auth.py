@@ -2,6 +2,7 @@ from flask import jsonify, request
 from app import db
 from app.auth import bp
 from flask_httpauth import HTTPBasicAuth, HTTPTokenAuth
+from app.models import User
 
 basic_auth = HTTPBasicAuth() 
 token_auth = HTTPTokenAuth()

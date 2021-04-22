@@ -21,7 +21,7 @@ def get_all_posts():
 def get_tag_by_post(tag):
     page = request.args.get('page', 1, type=int)
     per_page = 10
-    data = Post.to_collection_dict(Post.get_by_tag_name(tag).order_by(Post.created.desc()), page, per_page, 'get_tag_by_post', tag=tag)
+    data = Post.to_collection_dict(Post.get_by_tag_name(tag).order_by(Post.created.desc()), page, per_page, 'posts_bp.get_tag_by_post', tag=tag)
 
     return jsonify(data), 200
 
