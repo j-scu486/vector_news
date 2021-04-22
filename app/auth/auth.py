@@ -3,6 +3,7 @@ from app import db
 from app.auth import bp
 from flask_httpauth import HTTPBasicAuth, HTTPTokenAuth
 from app.models import User
+from datetime import datetime
 
 basic_auth = HTTPBasicAuth() 
 token_auth = HTTPTokenAuth()
@@ -29,6 +30,8 @@ def get_token():
     username = basic_auth.current_user().username
     image_url = basic_auth.current_user().get_avatar()
 
+    db.session.commit()
+
     return jsonify({
         'username': username,
         'token': token,
@@ -43,4 +46,6 @@ def revoke_token():
     if not user:
         return {"error": "User has no token"}
     user.revoke_token()
+    db.session.commit()
+
     return {"msg": "token revoked"}, 200

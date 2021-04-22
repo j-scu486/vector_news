@@ -74,11 +74,13 @@ class User(db.Model):
     def create_token(self, expires_in=6000):
         now = datetime.utcnow()
         if self.token and self.token_expiration  > now + timedelta(seconds=60):
+            print(self.token_expiration, now)
             return self.token
         self.token = base64.b64encode(os.urandom(24)).decode('utf-8')
         self.token_expiration = now + timedelta(seconds=expires_in)
         db.session.add(self)
-        db.session.commit()
+        
+        return self.token
 
     def revoke_token(self):
         self.token_expiration = datetime.utcnow() - timedelta(seconds=1)
