@@ -99,12 +99,6 @@ class User(db.Model):
     def get_avatar(self):
         return f"{request.url_root}static/avatars/{self.image_filepath}"
 
-    # TODO
-    # def to_dict(self):
-    #     data = {}
-
-    #     return data
-
     def __repr__(self):
         return '<User {}>'.format(self.username)
 

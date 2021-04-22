@@ -3,7 +3,7 @@ import { useState, useContext, useEffect } from 'react'
 import { WebContext } from '../webContext'
 import { UserContext } from '../userContext'
 
-const UserModal = ({ userId }) => {
+const UserModal = ({ userId, userImg }) => {
     const site = useContext(WebContext)
     const {user, setUser} = useContext(UserContext)
 
@@ -27,6 +27,9 @@ const UserModal = ({ userId }) => {
     }
     return (
         <div className="modal">
+            <div className="modal__avatar">
+                <img src={userImg} />
+            </div>
             {userInfo.map((post, index) => {
                 return (
                     <li key={index}>

@@ -3,11 +3,10 @@ import { WebContext } from '../webContext'
 import { UserContext } from '../userContext'
 
 
-export default function Card({ item, setModal, setuserInfo, setcurrentModal }) {
+export default function NewsCard({ item, setModal, setuserInfo, setcurrentModal }) {
     const site = useContext(WebContext)
     const [likeList, setLikeList] = useState(item.users_liked) // To dynamically show likes without making another api call
     const { user } = useContext(UserContext)
-    console.log(item)
 
     let headers = new Headers()
     headers.set('Authorization', 'Bearer ' + `${user.token}`)
@@ -33,14 +32,19 @@ export default function Card({ item, setModal, setuserInfo, setcurrentModal }) {
     }
 
     return (
-        <li className="card"> 
-            <img src={item.post_image} />
+        <li className="card">
+            <a href={item.post_url} target="blank" rel="noopener noreferrer"> 
+                <img src={item.post_image} />
+            </a>
             <h3 className="card__title">{item.post_title}</h3>
             <p className="card__description">"{item.post_description}"</p>
             <p>{likeList.length}</p>
             <button className="btn--card" onClick={() => {
                 setModal(true)
-                setuserInfo(`${item.post_user_id}`)
+                setuserInfo({
+                    userId: `${item.post_user_id}`, 
+                    userImg: `${item.post_user_image}`
+                })
                 setcurrentModal('userInfo')
             }}>
             <div className="card__avatar">

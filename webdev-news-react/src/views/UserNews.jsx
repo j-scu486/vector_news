@@ -12,7 +12,10 @@ const UserNews = () => {
     const [news, setNews] = useState([])
     const [filteredNews, setfilteredNews] = useState([])
     const [modal, setModal] = useState(false)
-    const [userInfo, setuserInfo] = useState('')
+    const [userInfo, setuserInfo] = useState({
+        userId: '',
+        userImg: ''
+    })
     const [currentModal, setcurrentModal] = useState('')
 
     // Pagination
@@ -100,7 +103,8 @@ const UserNews = () => {
                     :
                     <Modal 
                         modalType="userInfo"
-                        userId={userInfo} 
+                        userId={userInfo.userId} 
+                        userImg={userInfo.userImg}
                         onClose={() => setModal(false)} 
                     />
                 }

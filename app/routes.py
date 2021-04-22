@@ -2,20 +2,9 @@ from flask import jsonify, redirect, url_for, request
 from app import app, db
 from app.models import User, Post, Tag, Like
 from app.auth import token_auth, basic_auth
-from app.utils import check_image
+from app.utils import check_image, EMAIL_REGEX, regex
 
 import re, os
-
-# Regex for EMAIL and WEBSITE
-EMAIL_REGEX = re.compile(r'[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$')
-
-regex = re.compile(
-        r'^(?:http|ftp)s?://' # http:// or https://
-        r'(?:(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+(?:[A-Z]{2,6}\.?|[A-Z0-9-]{2,}\.?)|' #domain...
-        r'localhost|' #localhost...
-        r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})' # ...or ip
-        r'(?::\d+)?' # optional port
-        r'(?:/?|[/?]\S+)$', re.IGNORECASE)
         
 # Get all posts
 @app.route('/api/posts', methods=['GET'])

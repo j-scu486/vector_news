@@ -60,5 +60,6 @@ export default App;
 
 // TODO
 
-// Image upload with register
+// Fix registration so that a user is automatically logged in after registering
+// set pagination to properly work on user modal
 // Rankings on side bar (whoever has done the most posts is top). Top 5??
