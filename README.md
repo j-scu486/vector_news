@@ -12,4 +12,5 @@
   <li>User auth system using tokens</li>
   <li>Avatars</li>
   <li>Like/Unlike functionality</li>
+  <li>Filter by tag</li>
 </ul>
