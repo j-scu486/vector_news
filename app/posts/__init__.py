@@ -1,8 +1,8 @@
-# from flask import Blueprint
+from flask import Blueprint
 
-# bp = Blueprint('posts_bp', __name__)
+bp = Blueprint('posts_bp', __name__)
 
-# from app.posts import routes
+from app.posts import routes
 
 
 

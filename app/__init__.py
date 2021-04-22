@@ -4,18 +4,25 @@ from flask_migrate import Migrate
 from flask_cors import CORS
 from config import Config
 
-# from app.posts import posts_bp
-
-app = Flask(__name__)
-
-# Blueprints
-# app.register_blueprint(posts_bp)
 # Config settings
+cors = CORS()
+db = SQLAlchemy()
+migrate = Migrate()
 
-CORS(app)
-app.config.from_object(Config)
-db = SQLAlchemy(app)
-migrate = Migrate(app, db)
+def create_app(config_class=Config):
+    app = Flask(__name__)
+    app.config.from_object(config_class)
 
-from app import auth, routes, models
+    db.init_app(app)
+    migrate.init_app(app, db)
+    cors.init_app(app)
 
+    from app.auth import bp as auth_bp
+    app.register_blueprint(auth_bp)
+
+    from app.posts import bp as posts_bp
+    app.register_blueprint(posts_bp)
+
+    return app
+
+from app import models

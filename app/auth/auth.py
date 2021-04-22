@@ -1,7 +1,7 @@
 from flask import jsonify, request
-from app import app, db
+from app import db
+from app.auth import bp
 from flask_httpauth import HTTPBasicAuth, HTTPTokenAuth
-from app.models import User
 
 basic_auth = HTTPBasicAuth() 
 token_auth = HTTPTokenAuth()
@@ -20,7 +20,7 @@ def verify_password(email, password):
 def verify_token(token):
     return User.check_token(token) if token else None
 
-@app.route('/api/tokens', methods=['POST'])
+@bp.route('/api/tokens', methods=['POST'])
 @basic_auth.login_required
 def get_token():
     token = basic_auth.current_user().create_token()
@@ -35,7 +35,7 @@ def get_token():
         'image_url': image_url
         })
 
-@app.route('/api/tokens/revoke', methods=['POST'])
+@bp.route('/api/tokens/revoke', methods=['POST'])
 def revoke_token():
     data = request.get_json() or {}
     user = User.query.filter_by(token=data['token']).first()
