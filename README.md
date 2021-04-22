@@ -10,4 +10,6 @@
 <p>Features:</p>
 <ul>
   <li>User auth system using tokens</li>
+  <li>Avatars</li>
+  <li>Like/Unlike functionality</li>
 </ul>
