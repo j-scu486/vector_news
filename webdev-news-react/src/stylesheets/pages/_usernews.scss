@@ -1,9 +1,16 @@
 #usernews {
 
+    .grid-container {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+    }
     .container {
-        display: flex;
-        flex-wrap: wrap;
-        margin: 0 10%;
+        grid-column: 1 / span 3;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        justify-items: center;
+        grid-gap: 25px;
+        margin: 50px 0 50px 100px;
 
     }
 

@@ -75,26 +75,29 @@ const UserNews = () => {
                 setprevPage={setprevPage}
             />
             <div onClick={() => {setModal(!modal)}} className={`modal-container ${modal ? 'modal-active' : ''}`} ></div>
-            <ul className="container">
-                {filteredNews.map((item, index) => {
-                    return (
-                        <NewsCard 
-                            key={index}
-                            item={item}
-                            setModal={setModal}
-                            setuserInfo={setuserInfo}
-                            setcurrentModal={setcurrentModal}
-                            removePostFromList={removePostFromList}
-                        />
-                    )
-                })}
-                {!filteredNews.length &&                 
-                <div className="loading">
-                    <div className="loading__circle loading__circle--1"></div>
-                    <div className="loading__circle loading__circle--2"></div>
-                    <div className="loading__circle loading__circle--3"></div>
-                </div>}
-            </ul>
+            <div className="grid-container">
+                <ul className="container">
+                    {filteredNews.map((item, index) => {
+                        return (
+                            <NewsCard 
+                                key={index}
+                                item={item}
+                                setModal={setModal}
+                                setuserInfo={setuserInfo}
+                                setcurrentModal={setcurrentModal}
+                                removePostFromList={removePostFromList}
+                            />
+                        )
+                    })}
+                    {!filteredNews.length &&                 
+                    <div className="loading">
+                        <div className="loading__circle loading__circle--1"></div>
+                        <div className="loading__circle loading__circle--2"></div>
+                        <div className="loading__circle loading__circle--3"></div>
+                    </div>}
+                </ul>
+            </div>
+
             <div>
                 {prevPage && <button className="btn btn--pagination" onClick={() => updateUserNews(prevPage)}>Prev Page</button>}
                 {nextPage && <button className="btn btn--pagination" onClick={() => updateUserNews(nextPage)}>Next Page</button>}

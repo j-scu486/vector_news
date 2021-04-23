@@ -1,8 +1,11 @@
 .card {
-    width: 20%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 100%;
     border-radius: 15px;
     box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
-    margin: 2%;
     padding: 2vw;
 
     &__title {
@@ -19,5 +22,24 @@
         border-radius: 50%;
         vertical-align: middle;
         overflow: hidden;
+    }
+
+    &__likes {
+        display: flex;
+    }
+
+    &__delete {
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+}
+
+.container {
+    &--card-bottom {
+        margin: 20px 0 0;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
     }
 }

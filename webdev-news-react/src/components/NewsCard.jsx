@@ -2,7 +2,7 @@ import { useContext, useState } from 'react'
 import { WebContext } from '../webContext'
 import { UserContext } from '../userContext'
 import { MessageContext } from '../messageContext'
-
+import LikeButton from './LikeButton'
 
 export default function NewsCard({ item, setModal, setuserInfo, setcurrentModal, removePostFromList }) {
     const site = useContext(WebContext)
@@ -52,31 +52,35 @@ export default function NewsCard({ item, setModal, setuserInfo, setcurrentModal,
 
     return (
         <li className="card">
+            {item.post_user === user.username &&
+                <button className="card__delete" onClick={() => deletePost(item.id)}>X</button>}
             <a href={item.post_url} target="blank" rel="noopener noreferrer"> 
                 <img src={item.post_image} />
             </a>
             <h3 className="card__title">{item.post_title}</h3>
             <p className="card__description">"{item.post_description}"</p>
-            <p>{likeList.length}</p>
-            <button className="btn--card" onClick={() => {
-                setModal(true)
-                setuserInfo({
-                    userId: `${item.post_user_id}`, 
-                    userImg: `${item.post_user_image}`
-                })
-                setcurrentModal('userInfo')
-            }}>
-            <div className="card__avatar">
-                <img src={item.post_user_image} />
-            </div>
-                {item.post_user}
-            </button>
-            {user.token && <button onClick={() => addRemoveLike(item.id)}>
-                {likeList.includes(user.username) ? 'Unlike' : 'Like'}
-            </button>}
-            {item.post_user === user.username &&
-                <button onClick={() => deletePost(item.id)}>X</button>}
+            <div className="container--card-bottom">
+                <button className="btn--card" onClick={() => {
+                    setModal(true)
+                    setuserInfo({
+                        userId: `${item.post_user_id}`, 
+                        userImg: `${item.post_user_image}`
+                    })
+                    setcurrentModal('userInfo')
+                }}>
+                <div className="card__avatar">
+                    <img src={item.post_user_image} />
+                </div>
+                </button>
+                <div className="card__likes">
+                    {user.token && <button onClick={() => addRemoveLike(item.id)}>
+                        {likeList.includes(user.username) ? 'Unlike' : 'Like'}
+                    </button>}
+                    <p>{likeList.length}</p>
+                </div>
+                <LikeButton />
 
+            </div>
         </li>
     )
 }
