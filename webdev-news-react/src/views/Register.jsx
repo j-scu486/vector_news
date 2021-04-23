@@ -2,10 +2,12 @@ import { useState, useContext } from 'react'
 import { UserContext } from '../userContext'
 import { WebContext } from '../webContext'
 import { useHistory } from "react-router-dom"
+import { MessageContext } from '../messageContext'
 
 export const Register = () => {
     let history = useHistory();
     const site = useContext(WebContext);
+    const {setMessage} = useContext(MessageContext)
     const [imageInfo, setImageInfo] = useState(null)
     const [registerInfo, setRegisterInfo] = useState({
         'email': '',
@@ -19,6 +21,8 @@ export const Register = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
         let data = new FormData()
+        let headers = new Headers()
+        headers.set('Authorization', 'Basic ' + window.btoa(registerInfo.email + ":" + registerInfo.password))
         data.append('file', imageInfo)
 
         fetch(`${site}api/user/register`, {
@@ -41,9 +45,28 @@ export const Register = () => {
                 body: data
             })
         })
-        .then(() => history.push("/"))
-        .catch(error => console.log(error))
+        .then(() => {
+            const res = fetch(`${site}api/tokens`, {
+                method: 'POST',
+                headers: headers
+            })
 
+            return res
+        })
+        .then(res => res.json())
+        .then(res => {
+            setUser({
+                username: res.username,
+                token: res.token,
+                user_id: res.user_id
+            })
+            setMessage({
+                message: `Welcome back ${res.username}!`,
+                messageType: "success"
+            })
+            history.push("/")
+        })
+        .catch(error => console.log(error))
     }
 
     return (

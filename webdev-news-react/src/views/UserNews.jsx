@@ -52,6 +52,18 @@ const UserNews = () => {
         setfilteredNews([...results])
     }
 
+    const removePostFromList = (id) => {
+        let array = [...filteredNews]
+
+        const item = filteredNews.filter(item => item.id === id)
+        const index = filteredNews.indexOf(item[0])
+
+        if (index > -1) {
+            array.splice(index, 1)
+            setfilteredNews(array)
+        }
+    }
+
     
     return (
         <div id="usernews">
@@ -72,6 +84,7 @@ const UserNews = () => {
                             setModal={setModal}
                             setuserInfo={setuserInfo}
                             setcurrentModal={setcurrentModal}
+                            removePostFromList={removePostFromList}
                         />
                     )
                 })}

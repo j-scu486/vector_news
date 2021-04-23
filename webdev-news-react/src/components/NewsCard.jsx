@@ -1,16 +1,35 @@
 import { useContext, useState } from 'react'
 import { WebContext } from '../webContext'
 import { UserContext } from '../userContext'
+import { MessageContext } from '../messageContext'
 
 
-export default function NewsCard({ item, setModal, setuserInfo, setcurrentModal }) {
+export default function NewsCard({ item, setModal, setuserInfo, setcurrentModal, removePostFromList }) {
     const site = useContext(WebContext)
     const [likeList, setLikeList] = useState(item.users_liked) // To dynamically show likes without making another api call
     const { user } = useContext(UserContext)
+    const { setMessage } = useContext(MessageContext)
 
     let headers = new Headers()
     headers.set('Authorization', 'Bearer ' + `${user.token}`)
     headers.set('Content-type', 'application/json')
+
+    const deletePost = async (id) => {
+        fetch(`${site}api/post/delete`, {
+            method: 'DELETE',
+            headers: headers,
+            body: JSON.stringify({ "post_id": `${id}`})
+        })
+        .then(() => {
+            setMessage({
+                message: "Post deleted!",
+                messageType: "success"
+            })
+        })
+        .then(() => {
+            removePostFromList(id)
+        })
+    }
 
     const addRemoveLike = async (id) => {
         fetch(`${site}api/post/like`, {
@@ -55,6 +74,9 @@ export default function NewsCard({ item, setModal, setuserInfo, setcurrentModal 
             {user.token && <button onClick={() => addRemoveLike(item.id)}>
                 {likeList.includes(user.username) ? 'Unlike' : 'Like'}
             </button>}
+            {item.post_user === user.username &&
+                <button onClick={() => deletePost(item.id)}>X</button>}
+
         </li>
     )
 }
