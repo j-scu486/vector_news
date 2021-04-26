@@ -73,13 +73,15 @@ export default function NewsCard({ item, setModal, setuserInfo, setcurrentModal,
                 </div>
                 </button>
                 <div className="card__likes">
-                    {user.token && <button onClick={() => addRemoveLike(item.id)}>
-                        {likeList.includes(user.username) ? 'Unlike' : 'Like'}
-                    </button>}
                     <p>{likeList.length}</p>
                 </div>
-                <LikeButton />
-
+                {user.token && 
+                    <LikeButton
+                        toggleLike={addRemoveLike}
+                        likeNum={likeList.length} 
+                        itemId={item.id}
+                        liked={likeList.includes(user.username) ? false : true}
+                    />}
             </div>
         </li>
     )

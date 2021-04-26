@@ -2,9 +2,8 @@ import Lottie from 'react-lottie';
 import * as animationData from '../stylesheets/vendors/6970-like.json'
 import { useState } from 'react'
 
-export default function LikeButton() {
-    const [stopped, setStopped] = useState(true)
-    const [paused, setPaused] = useState(true)
+export default function LikeButton({ liked, toggleLike, itemId }) {
+    const [stopped, setStopped] = useState(liked)
     const [direction, setDirection] = useState(1)
 
     const defaultOptions = {
@@ -17,32 +16,30 @@ export default function LikeButton() {
       };
 
       const toggleAnimation = () => {
-        direction ? setDirection(-1) : setDirection(1)
+        toggleLike(itemId)
+        
+        if (!stopped) {
+          setDirection(direction * -1)
+        }
+          setStopped(false)
       }
 
       const lottieStyle = {
           cursor: 'pointer'
       }
 
-      const eventListeners=[
-        {
-          eventName: 'complete',
-          callback: (e) => toggleAnimation(),
-        },
-      ]
-
     return (
         <div 
           style={lottieStyle}
-          // onClick={toggleAnimation}
+          onClick={toggleAnimation}
           >                
             <Lottie options={defaultOptions}
-                        height={100}
-                        width={100}
-                        speed={direction}
-                        isStopped={stopped}
-                        eventListeners={eventListeners}
-                        isPaused={paused}/>
+                    height={100}
+                    width={100}
+                    direction={direction}
+                    isStopped={stopped}
+                    />
+                        
         </div>
     )
 }
