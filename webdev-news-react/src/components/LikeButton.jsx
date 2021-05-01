@@ -37,12 +37,12 @@ export default function LikeButton() {
           // onClick={toggleAnimation}
           >                
             <Lottie options={defaultOptions}
-                        height={100}
-                        width={100}
-                        speed={direction}
-                        isStopped={stopped}
-                        eventListeners={eventListeners}
-                        isPaused={paused}/>
+                    height={100}
+                    width={100}
+                    speed={direction}
+                    isStopped={stopped}
+                    // eventListeners={eventListeners}
+                    isPaused={paused}/>
         </div>
     )
 }
