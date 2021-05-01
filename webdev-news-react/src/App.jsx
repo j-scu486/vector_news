@@ -73,7 +73,6 @@ export default App;
 // Hover over likes: see number of people who like
 // User modal: Image center. Posts as links follow.
 // Register page: Styling for choosing avatar
-// Fix loading animation (put in center)
 // Message popup styling
 // Navbar styling (responsiveness)
 // Add post styling

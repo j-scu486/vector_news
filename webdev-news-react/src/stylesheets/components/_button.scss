@@ -20,4 +20,16 @@
         border-radius: 16px;
         color: $primary-orange
     }
+
+    &--add-post {
+        background-color: $primary-orange;
+        border-radius: 20px;
+        color: #fff;
+        transition: all .25s;
+
+        &:hover {
+            box-shadow: 0 5px 10px rgba($color: #ffa45b, $alpha: 0.8);
+        }
+    }
+
 }

@@ -5,7 +5,7 @@ export const MenuBar = ({ setfilteredNews, setnextPage, setprevPage }) => {
     const site = useContext(WebContext)
 
     const handleFilters = async (e) => {
-        let res = await fetch(`${site}api/posts/${e.target.innerText}`)
+        let res = await fetch(`${site}api/posts/${e.target.innerText.toLowerCase()}`)
         let data = await res.json()
 
         setnextPage(data._links.next)
@@ -14,10 +14,10 @@ export const MenuBar = ({ setfilteredNews, setnextPage, setprevPage }) => {
     }
     
     return (
-        <div>
-            <button onClick={handleFilters}>javascript</button>
-            <button onClick={handleFilters}>html</button>
-            <button onClick={handleFilters}>css</button>
+        <div className='menubar'>
+            <button className='menuitem menuitem--javascript' onClick={handleFilters}>Javascript</button>
+            <button className='menuitem menuitem--html' onClick={handleFilters}>HTML</button>
+            <button className='menuitem menuitem--css' onClick={handleFilters}>CSS</button>
         </div>
     )
 }

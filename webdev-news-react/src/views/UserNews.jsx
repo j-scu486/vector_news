@@ -75,6 +75,12 @@ const UserNews = () => {
                 setprevPage={setprevPage}
             />
             <div onClick={() => {setModal(!modal)}} className={`modal-container ${modal ? 'modal-active' : ''}`} ></div>
+            {!filteredNews.length &&                 
+                    <div className="loading">
+                        <div className="loading__circle loading__circle--1"></div>
+                        <div className="loading__circle loading__circle--2"></div>
+                        <div className="loading__circle loading__circle--3"></div>
+                    </div>}
             <div className="grid-container">
                 <ul className="container">
                     {filteredNews.map((item, index) => {
@@ -89,12 +95,6 @@ const UserNews = () => {
                             />
                         )
                     })}
-                    {!filteredNews.length &&                 
-                    <div className="loading">
-                        <div className="loading__circle loading__circle--1"></div>
-                        <div className="loading__circle loading__circle--2"></div>
-                        <div className="loading__circle loading__circle--3"></div>
-                    </div>}
                 </ul>
             </div>
 
@@ -130,7 +130,9 @@ const UserNews = () => {
                 <button onClick={() => { 
                     setModal(true) 
                     setcurrentModal('newPost')
-                    }}>Add Post
+                    }}
+                    className="btn btn--add-post"
+                    >Add Post +
                 </button>
             }
         </div>
