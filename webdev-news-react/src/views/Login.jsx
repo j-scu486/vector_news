@@ -12,8 +12,8 @@ const Login = () => {
         'email': '',
         'password': ''
     })
-    const {user, setUser} = useContext(UserContext)
-    const {setMessage} = useContext(MessageContext)
+    const { setUser } = useContext(UserContext)
+    const { setMessage } = useContext(MessageContext)
 
     const handleSubmit = (e) => {
         e.preventDefault()

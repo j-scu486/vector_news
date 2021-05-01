@@ -72,16 +72,17 @@ export default function NewsCard({ item, setModal, setuserInfo, setcurrentModal,
                     <img src={item.post_user_image} />
                 </div>
                 </button>
-                <div className="card__likes">
-                    <p>{likeList.length}</p>
-                </div>
-                {user.token && 
+                <div className={'card__likes ' + (!user.token ? 'card__likes--logout' : '') }>
+                    <p>{likeList.length} like{likeList.length === 1 ? '' : 's'}</p>
+                    {user.token && 
                     <LikeButton
                         toggleLike={addRemoveLike}
                         likeNum={likeList.length} 
                         itemId={item.id}
                         liked={likeList.includes(user.username) ? false : true}
                     />}
+                </div>
+
             </div>
         </li>
     )

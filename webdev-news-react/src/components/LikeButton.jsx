@@ -25,7 +25,10 @@ export default function LikeButton({ liked, toggleLike, itemId }) {
       }
 
       const lottieStyle = {
-          cursor: 'pointer'
+          cursor: 'pointer',
+          display: 'flex',
+          paddingBottom: '6px',
+          paddingLeft: '5px'
       }
 
     return (
@@ -34,8 +37,8 @@ export default function LikeButton({ liked, toggleLike, itemId }) {
           onClick={toggleAnimation}
           >                
             <Lottie options={defaultOptions}
-                    height={100}
-                    width={100}
+                    height={37}
+                    width={60}
                     direction={direction}
                     isStopped={stopped}
                     />

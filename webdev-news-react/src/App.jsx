@@ -58,8 +58,22 @@ function App() {
 
 export default App;
 
-// TODO
+// Backend TODO
 
 // Add ability for users to edit their own posts
 // set pagination to properly work on user modal
 // Rankings on side bar (whoever has done the most posts is top). Top 5?? (might need redis for this)
+// Refactor (apiservice)
+// Tests
+
+// Frontend TODO
+
+// Tags button styling
+// Click likes: open modal to show users who like
+// Hover over likes: see number of people who like
+// User modal: Image center. Posts as links follow.
+// Register page: Styling for choosing avatar
+// Fix loading animation (put in center)
+// Message popup styling
+// Navbar styling (responsiveness)
+// Add post styling
