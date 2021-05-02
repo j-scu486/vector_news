@@ -1,8 +1,10 @@
 #usernews {
+    margin: 50px 0 50px 100px;
 
     .grid-container {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
+        margin: 50px 0;
     }
     .container {
         grid-column: 1 / span 3;
@@ -10,8 +12,7 @@
         grid-template-columns: repeat(3, 1fr);
         justify-items: center;
         grid-gap: 25px;
-        margin: 50px 0 50px 100px;
-
+        
     }
 
     .emptyResults {

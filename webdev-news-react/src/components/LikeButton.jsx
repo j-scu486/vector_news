@@ -27,7 +27,6 @@ export default function LikeButton({ liked, toggleLike, itemId }) {
       const lottieStyle = {
           cursor: 'pointer',
           display: 'flex',
-          paddingBottom: '6px',
           paddingLeft: '5px'
       }
 

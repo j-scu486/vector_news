@@ -1,7 +1,9 @@
 import { useState, useEffect, useContext } from 'react'
-import { CSSTransition } from 'react-transition-group';
+import { CSSTransition } from 'react-transition-group'
 import { WebContext } from '../webContext'
 import { UserContext } from '../userContext'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlusCircle } from '@fortawesome/free-solid-svg-icons'
 import { MessageContext } from '../messageContext'
 import MenuBar from '../components/MenuBar'
 import Message from '../components/Message'
@@ -66,14 +68,9 @@ const UserNews = () => {
 
     
     return (
-        <div id="usernews">
+        <div id="usernews" className="usernews">
             <Message />
-            <MenuBar 
-                news={news}
-                setfilteredNews={setfilteredNews}
-                setnextPage={setnextPage}
-                setprevPage={setprevPage}
-            />
+
             <div onClick={() => {setModal(!modal)}} className={`modal-container ${modal ? 'modal-active' : ''}`} ></div>
             {!filteredNews.length &&                 
                     <div className="loading">
@@ -82,6 +79,23 @@ const UserNews = () => {
                         <div className="loading__circle loading__circle--3"></div>
                     </div>}
             <div className="grid-container">
+            <div className="menubar">
+                <MenuBar 
+                    news={news}
+                    setfilteredNews={setfilteredNews}
+                    setnextPage={setnextPage}
+                    setprevPage={setprevPage}
+                />
+                {user.token && 
+                    <button onClick={() => { 
+                        setModal(true) 
+                        setcurrentModal('newPost')
+                        }}
+                        className="btn btn--add-post"
+                        >Add Post <FontAwesomeIcon style={{ marginLeft: 10, fontSize: 20 }} icon={faPlusCircle}></FontAwesomeIcon>
+                    </button>
+                }
+            </div>
                 <ul className="container">
                     {filteredNews.map((item, index) => {
                         return (
@@ -125,16 +139,6 @@ const UserNews = () => {
                     />
                 }
                 </CSSTransition>
-
-            {user.token && 
-                <button onClick={() => { 
-                    setModal(true) 
-                    setcurrentModal('newPost')
-                    }}
-                    className="btn btn--add-post"
-                    >Add Post +
-                </button>
-            }
         </div>
     )
 }

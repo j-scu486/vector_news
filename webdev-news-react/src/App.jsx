@@ -68,11 +68,10 @@ export default App;
 
 // Frontend TODO
 
-// Tags button styling
-// Click likes: open modal to show users who like
-// Hover over likes: see number of people who like
 // User modal: Image center. Posts as links follow.
 // Register page: Styling for choosing avatar
 // Message popup styling
-// Navbar styling (responsiveness)
-// Add post styling
+// Navbar styling (responsiveness + styling)
+// Pagination styling
+// Post modal styling
+// Click likes: open modal to show users who like (advanced)

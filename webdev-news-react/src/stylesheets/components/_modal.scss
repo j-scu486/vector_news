@@ -1,17 +1,50 @@
 .modal {
-    position: absolute;
+    position: fixed;
     z-index: 2;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     height: 80%;
     width: 50%;
-    background: #fff;
+    background-color: #fff;
     transition: all 300ms;
+    border-radius: 20px;
 
     &__avatar {
-        width: 100px;
-        height: 100px;
+        width: 13vw;
+        height: 13vw;
+        border-radius: 50%;
+        vertical-align: middle;
+        overflow: hidden;
+    }
+
+    &__username {
+        margin: 20px 0;
+        font-size: 2rem;
+    }
+
+    &__list {
+
+        &--title {
+            margin: 10px 0;
+            align-self: flex-start;
+            font-size: 1.25rem;
+        }
+    }
+
+    &__list-item {
+        list-style-type: square;
+        margin: 10px 0;
+
+        &:hover a {
+            color: $primary-orange;
+        }
+    }
+
+    &--user {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 }
 

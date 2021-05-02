@@ -2,6 +2,8 @@ import { useContext, useState } from 'react'
 import { WebContext } from '../webContext'
 import { UserContext } from '../userContext'
 import { MessageContext } from '../messageContext'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import LikeButton from './LikeButton'
 
 export default function NewsCard({ item, setModal, setuserInfo, setcurrentModal, removePostFromList }) {
@@ -53,7 +55,9 @@ export default function NewsCard({ item, setModal, setuserInfo, setcurrentModal,
     return (
         <li className="card">
             {item.post_user === user.username &&
-                <button className="card__delete" onClick={() => deletePost(item.id)}>X</button>}
+                <button className="card__delete" onClick={() => deletePost(item.id)}>
+                    <FontAwesomeIcon icon={faTimes}></FontAwesomeIcon>
+                </button>}
             <a href={item.post_url} target="blank" rel="noopener noreferrer"> 
                 <img src={item.post_image} />
             </a>

@@ -1,8 +1,16 @@
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { WebContext } from '../webContext'
 
 export const MenuBar = ({ setfilteredNews, setnextPage, setprevPage }) => {
+    const tagsList = [
+        'Javascript',
+        'HTML',
+        'CSS'
+    ]
     const site = useContext(WebContext)
+    const [active, setActive] = useState('')
+
+    const buttonActive  = e => setActive(e.target.innerText.toLowerCase())
 
     const handleFilters = async (e) => {
         let res = await fetch(`${site}api/posts/${e.target.innerText.toLowerCase()}`)
@@ -14,10 +22,16 @@ export const MenuBar = ({ setfilteredNews, setnextPage, setprevPage }) => {
     }
     
     return (
-        <div className='menubar'>
-            <button className='menuitem menuitem--javascript' onClick={handleFilters}>Javascript</button>
-            <button className='menuitem menuitem--html' onClick={handleFilters}>HTML</button>
-            <button className='menuitem menuitem--css' onClick={handleFilters}>CSS</button>
+        <div>
+            {tagsList.map((item, index) => {
+                return (
+                    <button 
+                        key={index} 
+                        className={'menuitem ' + (active === item.toLowerCase() ? 'menuitem--active' : '')}
+                        onClick={(e) => {handleFilters(e); buttonActive(e)}}
+                        >{item}</button>
+                )
+            })}
         </div>
     )
 }

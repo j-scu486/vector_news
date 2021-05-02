@@ -1,12 +1,33 @@
 .menubar {
-    margin: 50px 0 0 50px;
+    grid-column: 1 / span 3;
+    display: flex;
+    justify-content: space-between;
+    margin: 50px 0;
 }
 
 .menuitem {
     padding: 10px 15px;
-    margin: 0 10px;
     border: 2px solid $primary-orange;
     border-radius: 10px;
     font-size: 1.5rem;
     color: $font-black-1;
+    transition: all .25s;
+
+    &--active {
+        background-color: $primary-orange;
+        color: #fff;
+    }
+
+    &:nth-child(1) {
+        margin-right: 20px;
+    }
+
+    &:not(:nth-child(1)) {
+        margin: 0 20px;
+    }
+
+    &:hover {
+        color: #fff;
+        background-color: $primary-orange;
+    }
 }

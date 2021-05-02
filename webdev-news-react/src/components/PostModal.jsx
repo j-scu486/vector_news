@@ -29,6 +29,7 @@ const PostModal = ({ updateNews, setModal }) => {
         let headers = new Headers()
         headers.set('Authorization', 'Bearer ' + `${user.token}`)
         headers.set('Content-type', 'application/json')
+        console.log(JSON.stringify(postDetails))
 
         fetch(`${site}api/post/create`, {
             method: 'POST',
@@ -40,7 +41,7 @@ const PostModal = ({ updateNews, setModal }) => {
                 updateNews()
                 setModal(false)
             } else if (res.status === 400) {
-                console.log("Invalid URL")
+                console.log("Invalid URL or tags")
             } else if (res.status === 401) {
                 console.log("Session expired. Please login again")
             } else {
