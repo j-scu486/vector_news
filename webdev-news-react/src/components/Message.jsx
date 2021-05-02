@@ -1,5 +1,5 @@
 
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import { MessageContext } from '../messageContext'
 
 export default function Message() {
@@ -8,8 +8,10 @@ export default function Message() {
 
     if (message.messageType === "success") {
         className += ' message--success'
-    } else {
+    } else if (message.messageType === "error") {
         className += ' message--error'
+    } else {
+        className = ''
     }
 
     return (

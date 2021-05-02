@@ -62,16 +62,16 @@ export default App;
 
 // Add ability for users to edit their own posts
 // set pagination to properly work on user modal
+// switch to postgres database
 // Rankings on side bar (whoever has done the most posts is top). Top 5?? (might need redis for this)
 // Refactor (apiservice)
 // Tests
 
 // Frontend TODO
 
-// User modal: Image center. Posts as links follow.
 // Register page: Styling for choosing avatar
-// Message popup styling
 // Navbar styling (responsiveness + styling)
+// Spinning loaders on buttons
 // Pagination styling
 // Post modal styling
 // Click likes: open modal to show users who like (advanced)

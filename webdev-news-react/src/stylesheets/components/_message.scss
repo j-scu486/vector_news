@@ -1,10 +1,51 @@
 .message {
-    
+    position: absolute;
+    top: -10%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1rem;
+
     &--success {
+        top: 5%;
+        animation: moveMessageIn 3s forwards;
         color: green;
+        border: 2px solid green;
+        padding: 20px;
     }
 
     &--error {
+        top: 5%;
+        animation: moveMessageIn 3s forwards;
         color: red;
+        border: 2px solid red;
+        padding: 20px;
+    }
+}
+
+
+
+@keyframes moveMessageIn {
+    0% {
+        opacity: 0;
+        top: -10%;
+    }
+    20% {
+        opacity: 1;
+        top: 5%;
+    }
+
+    50% {
+        opacity: 1;
+        top: 5%;
+    }
+
+    70% {
+        opacity: 1;
+        top: 5%;
+    }
+
+    100% {
+        opacity: 1;
+        top: -10%;
     }
 }
