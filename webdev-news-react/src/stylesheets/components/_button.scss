@@ -26,6 +26,14 @@
         color: $primary-orange
     }
 
+    &--form-post {
+        color: #fff;
+        background-color: $primary-orange;
+        border: none;
+        text-transform: uppercase;
+        margin: 20px 0 0;
+    }
+
     &--add-post {
         background-color: $primary-orange;
         border-radius: 20px;

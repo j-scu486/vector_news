@@ -1,6 +1,8 @@
 import React from 'react'
 import { WebContext } from '../webContext'
 import { useContext, useEffect, useState } from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCrown } from '@fortawesome/free-solid-svg-icons'
 
 export default function Leaderboard() {
     const site = useContext(WebContext)
@@ -13,14 +15,18 @@ export default function Leaderboard() {
         return response
     }
 
+    const updateLeaderboard = (data) => {
+        setleaderBoard(data)
+    }
+
     useEffect(async () => {
         let data = await leaderboard()
-        setleaderBoard(data.leaderboard_data)
+        updateLeaderboard(data.leaderboard_data)
     }, [])
 
     return (
         <div className="leaderboard">
-            <h2 className="leaderboard__title">Top posters!</h2>
+            <h2 className="leaderboard__title">Top posters!<FontAwesomeIcon style={{ marginLeft: 20, color: '#ffda77' }} icon={faCrown}></FontAwesomeIcon></h2>
             <ul className="leaderboard__list">
             {leaderBoard.map((item, index) => {
                 return (

@@ -56,6 +56,7 @@ const Login = () => {
         <div id="login">
             <Message />
             <div className="container">
+                <h2 className="login__title">Login</h2>
                 <form className="form form--login" onSubmit={handleSubmit}>
                     <label htmlFor="email">Email</label>
                     <input className="form__input" type="text" id="email" onChange={(e) => setloginInfo({...loginInfo, email: e.target.value})} />

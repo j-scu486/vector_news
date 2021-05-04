@@ -62,7 +62,6 @@ export default App;
 
 // Add ability for users to edit their own posts
 // set pagination to properly work on user modal
-// Rankings on side bar (whoever has done the most posts is top). Top 5?? (might need redis for this)
 // Refactor (apiservice)
 // Tests
 
@@ -70,5 +69,4 @@ export default App;
 
 // Navbar styling (responsiveness + styling)
 // Spinning loaders on buttons
-// Post modal styling
 // Click likes: open modal to show users who like (advanced)

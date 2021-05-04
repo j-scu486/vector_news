@@ -52,15 +52,20 @@ const PostModal = ({ updateNews, setModal }) => {
     }
 
     return (
-<div className="modal">
-            <form onSubmit={handleSubmit}>
-                <label>URL</label>
-                <input type="text" onChange={(e) => setpostDetails({...postDetails, post_url: e.target.value})} />
-                <label>Post Description</label>
-                <input type="text" onChange={(e) => setpostDetails({...postDetails, post_description: e.target.value})} />
-
+<div className="modal modal--post">
+    <h2 className="modal--post__header">Add a post!</h2>
+            <form className="form form--post" onSubmit={handleSubmit}>
+                <label className="form--post__label" >URL</label>
+                <input placeholder="http://" className="form--post__input" type="text" onChange={(e) => setpostDetails({...postDetails, post_url: e.target.value})} />
+                <label className="form--post__label">Post Description</label>
+                <textarea 
+                    className="form--post__input--textarea" 
+                    placeholder="What makes this site so interesting?"
+                    onChange={(e) => setpostDetails({...postDetails, post_description: e.target.value})} 
+                />
                 <div>
                     <input 
+                        className="form--post__input--checkbox"
                         type="checkbox" 
                         id="html" 
                         onChange={(e) => handleTags(e)}
@@ -70,6 +75,7 @@ const PostModal = ({ updateNews, setModal }) => {
                 </div>
                 <div>
                     <input 
+                        className="form--post__input--checkbox"
                         type="checkbox" 
                         id="javascript" 
                         onChange={(e) => handleTags(e)}
@@ -79,6 +85,7 @@ const PostModal = ({ updateNews, setModal }) => {
                 </div>
                 <div>
                     <input 
+                        className="form--post__input--checkbox"
                         type="checkbox" 
                         id="css" 
                         onChange={(e) => handleTags(e)}
@@ -86,7 +93,11 @@ const PostModal = ({ updateNews, setModal }) => {
                     />
                     <label>css</label>
                 </div>
-                <input type="submit" value="submit" />
+                <input 
+                    className="btn btn--form-post"
+                    type="submit" 
+                    value="submit" 
+                    />
             </form>
         </div>
     )

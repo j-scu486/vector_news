@@ -80,6 +80,7 @@ export const Register = () => {
         <div id="register">
             <Message />
             <div className="container">
+                <h2 className="register__title">Register</h2>
                 <form className="form form--register" onSubmit={handleSubmit}>
                     <div className="form__container form__container--1">
                         <label htmlFor="email">Email</label>

@@ -1,5 +1,12 @@
 #login {
-
+    .login {
+        &__title {
+            font-size: 3rem;
+            margin-bottom: 50px;
+            color: $primary-orange;
+            border-bottom: 10px solid $primary-blue;
+        }
+    }
     .container {
         display: flex;
         justify-content: center;

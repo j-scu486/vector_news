@@ -1,5 +1,15 @@
 #register {
 
+    .register {
+
+        &__title {
+            font-size: 3rem;
+            margin-bottom: 100px;
+            color: $primary-orange;
+            border-bottom: 10px solid $primary-blue;
+        }
+    }
+
     .container {
         display: flex;
         justify-content: center;
