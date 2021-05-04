@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons'
 import { MessageContext } from '../messageContext'
 import MenuBar from '../components/MenuBar'
+import Leaderboard from '../components/Leaderboard'
 import Message from '../components/Message'
 import Modal from '../components/Modal'
 import NewsCard from '../components/NewsCard'
@@ -102,6 +103,7 @@ const UserNews = () => {
                         )
                     })}
                 </ul>
+                <Leaderboard />
             </div>
             {!filteredNews.length &&                 
                     <div className="loading">
@@ -109,7 +111,7 @@ const UserNews = () => {
                         <div className="loading__circle loading__circle--2"></div>
                         <div className="loading__circle loading__circle--3"></div>
                     </div>}
-            <div>
+            <div className="pagination">
                 {prevPage && <button className="btn btn--pagination" onClick={() => updateUserNews(prevPage)}>Prev Page</button>}
                 {nextPage && <button className="btn btn--pagination" onClick={() => updateUserNews(nextPage)}>Next Page</button>}
             </div>

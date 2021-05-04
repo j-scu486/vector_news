@@ -1,0 +1,57 @@
+.leaderboard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+    padding: 50px;
+    border: 2px solid rgba($color: #d6d6d6, $alpha: 0.4);
+    border-radius: 20px;
+    width: 90%;
+    height: 100%;
+
+    &__list {
+        width: 100%;
+    }
+
+    &__title {
+        font-size: 2rem;
+        margin-bottom: 50px;
+        color: $primary-orange;
+        border-bottom: 5px solid $primary-blue;
+    }
+
+    &__item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        margin: 0 0 20px;
+
+
+        &--avatar {
+            width: 4vw;
+            height: 4vw;
+            border-radius: 50%;
+            vertical-align: middle;
+            overflow: hidden;
+
+            img {
+                height: 100%;
+            }
+        }
+
+        &--rank {
+            font-size: 1.25rem;
+            font-weight: bold;
+        }
+
+        &--count {
+
+        }
+
+        &--username {
+
+        }
+
+    }   
+}

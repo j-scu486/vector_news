@@ -60,7 +60,6 @@ export default App;
 
 // Backend TODO
 
-// Fix like error (foreignkey problem)
 // Add ability for users to edit their own posts
 // set pagination to properly work on user modal
 // Rankings on side bar (whoever has done the most posts is top). Top 5?? (might need redis for this)
@@ -69,9 +68,7 @@ export default App;
 
 // Frontend TODO
 
-// Register page: Styling for choosing avatar
 // Navbar styling (responsiveness + styling)
 // Spinning loaders on buttons
-// Pagination styling
 // Post modal styling
 // Click likes: open modal to show users who like (advanced)

@@ -6,6 +6,12 @@
     font-weight: 900;
     cursor: pointer;
 
+    &--pagination {
+        &:hover {
+            color: $primary-orange;
+        }
+    }
+
     &--submit {
         margin: 15% 0 0;
         border: 2px solid $primary-orange;

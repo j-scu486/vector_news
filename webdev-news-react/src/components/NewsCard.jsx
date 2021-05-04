@@ -16,7 +16,7 @@ export default function NewsCard({ item, setModal, setuserInfo, setcurrentModal,
     headers.set('Authorization', 'Bearer ' + `${user.token}`)
     headers.set('Content-type', 'application/json')
 
-    const deletePost = async (id) => {
+    const deletePost = (id) => {
         fetch(`${site}api/post/delete`, {
             method: 'DELETE',
             headers: headers,
@@ -33,7 +33,7 @@ export default function NewsCard({ item, setModal, setuserInfo, setcurrentModal,
         })
     }
 
-    const addRemoveLike = async (id) => {
+    const addRemoveLike = (id) => {
         fetch(`${site}api/post/like`, {
             method: 'POST',
             headers: headers,

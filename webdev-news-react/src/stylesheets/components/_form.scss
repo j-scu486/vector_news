@@ -1,12 +1,32 @@
 .form {
     display: flex;
-    flex-direction: column;
     align-items: center;
+
+    &__container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        &--2 {
+            
+            margin-left: 50px;
+        }
+    }
 
     &__input {
         padding: 1vw;
         margin: 5%;
         border: 1px solid #ccc;
         border-radius: 10px;
+    }
+}
+
+.form-heading {
+
+    &--avatar {
+        font-size: 2rem;
+        margin-bottom: 50px;
+        color: $primary-orange;
     }
 }

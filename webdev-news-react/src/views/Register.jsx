@@ -67,7 +67,13 @@ export const Register = () => {
             })
             history.push("/")
         })
-        .catch(error => console.log(error))
+        .catch(error => {
+            console.log(error)
+            setMessage({
+                message: error.toString(),
+                messageType: 'error'
+            })
+        })
     }
 
     return (
@@ -75,17 +81,24 @@ export const Register = () => {
             <Message />
             <div className="container">
                 <form className="form form--register" onSubmit={handleSubmit}>
-                    <label htmlFor="email">Email</label>
-                    <input className="form__input" id="email" type="text" onChange={(e) => setRegisterInfo({...registerInfo, email: e.target.value})} />
-                    <label htmlFor="username">Username</label>
-                    <input className="form__input" id="username" type="text" onChange={(e) => setRegisterInfo({...registerInfo, username: e.target.value})} />
-                    <label htmlFor="password">Password</label>
-                    <input className="form__input" id="password" type="password" onChange={(e) => setRegisterInfo({...registerInfo, password: e.target.value})} />
-                    <input type="file" onChange={(e) => {
-                        setImageInfo(e.target.files[0])
-                        setRegisterInfo({...registerInfo, image_file: e.target.files[0].name})
-                        }} />
-                    <input className="btn btn--submit" type="submit" value="Register" />
+                    <div className="form__container form__container--1">
+                        <label htmlFor="email">Email</label>
+                        <input className="form__input" id="email" type="text" onChange={(e) => setRegisterInfo({...registerInfo, email: e.target.value})} />
+                        <label htmlFor="username">Username</label>
+                        <input className="form__input" id="username" type="text" onChange={(e) => setRegisterInfo({...registerInfo, username: e.target.value})} />
+                        <label htmlFor="password">Password</label>
+                        <input className="form__input" id="password" type="password" onChange={(e) => setRegisterInfo({...registerInfo, password: e.target.value})} />
+                        <input className="btn btn--submit" type="submit" value="Register" />
+
+                    </div>
+                    <div className="form__container form__container--2">
+                        <h2 className="form-heading--avatar">Upload an avatar!</h2>
+                        <input type="file" onChange={(e) => {
+                            setImageInfo(e.target.files[0])
+                            setRegisterInfo({...registerInfo, image_file: e.target.files[0].name})
+                            }} />
+                    </div>
+                    
                 </form>
             </div>
         </div>

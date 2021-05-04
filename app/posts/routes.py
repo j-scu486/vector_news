@@ -1,6 +1,7 @@
 from flask import jsonify, redirect, url_for, request
-from app import db
+from app import db, redis_client
 from app.posts import bp
+from app.redis.leaderboard import increment_posts, decrement_posts
 from app.models import User, Post, Tag, Like
 from app.auth.auth import token_auth, basic_auth
 from app.utils.utils import check_image, EMAIL_REGEX, regex
@@ -70,6 +71,7 @@ def create_post():
 
     user = User.query.filter_by(token=token_auth.current_user().token).first()
     new_post.user_id = user.id
+    increment_posts(user)
 
     db.session.add(new_post)
     db.session.commit()
@@ -84,11 +86,14 @@ def delete_post():
         post = Post.query.get(int(data['post_id']))
     except:
         return {"error": "invalid data"}, 400
+
     user = User.query.filter_by(token=token_auth.current_user().token).first()
     if not post:
         return {"error": "could not find post"}, 400
     if post.user_id != user.id:
         return {"error": "Invalid credentials"}, 401
+
+    decrement_posts(user)
     db.session.delete(post)
     db.session.commit()
     

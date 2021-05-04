@@ -92,6 +92,14 @@ class User(db.Model):
         if user is None or user.token_expiration < datetime.utcnow():
             return None
         return user
+
+    def to_dict(self):
+        data = {
+            "user": self.username,
+            "avatar": self.get_avatar()
+        }
+
+        return data
         
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
@@ -160,8 +168,8 @@ class Post(PaginatedAPIMixin, db.Model):
 
 class Like(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    user_liked = db.Column(db.ForeignKey('user.id'))
-    post_id = db.Column(db.ForeignKey('post.id'))
+    user_liked = db.Column(db.ForeignKey('user.id', ondelete="CASCADE"))
+    post_id = db.Column(db.ForeignKey('post.id', ondelete="CASCADE"))
 
     @classmethod
     def get_liked_users(cls, post_id):
