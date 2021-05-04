@@ -15,8 +15,8 @@ tags = db.Table('tags',
 )
 
 likes = db.Table('likes',
-    db.Column('like_id', db.Integer, db.ForeignKey('like.id'), primary_key=True),
-    db.Column('user_id', db.Integer, db.ForeignKey('user.id'), primary_key=True), 
+    db.Column('like_id', db.Integer, db.ForeignKey('like.id', ondelete="CASCADE"), primary_key=True),
+    db.Column('user_id', db.Integer, db.ForeignKey('user.id', ondelete="CASCADE"), primary_key=True), 
 )
 
 class PaginatedAPIMixin(object):
@@ -48,8 +48,8 @@ class User(db.Model):
     token = db.Column(db.String(32), index=True, unique=True)
     token_expiration = db.Column(db.DateTime)
     image_filepath = db.Column(db.String(128))
-    like = db.relationship('Like', backref='user')
-    liked_posts = db.relationship('Like', secondary="likes")
+    like = db.relationship('Like', backref='user', cascade='all,delete')
+    liked_posts = db.relationship('Like', secondary="likes", cascade='all,delete')
 
     def add_remove_like(self, post_id):
         if not Post.query.get(post_id):
@@ -59,6 +59,7 @@ class User(db.Model):
             if like.post_id == post_id: # Post is already liked, so remove
                 self.liked_posts.remove(like)
                 post_like = Like.query.filter_by(post_id=post_id).first()
+                db.session.delete(like)
                 db.session.delete(post_like)
 
                 return {"removed_like_post": like.post_id}
