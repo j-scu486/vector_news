@@ -58,7 +58,7 @@ export default function NewsCard({ item, setModal, setuserInfo, setcurrentModal,
                 <button className="card__delete" onClick={() => deletePost(item.id)}>
                     <FontAwesomeIcon icon={faTimes}></FontAwesomeIcon>
                 </button>}
-            <a href={item.post_url} target="blank" rel="noopener noreferrer"> 
+            <a className="card__image" href={item.post_url} target="blank" rel="noopener noreferrer"> 
                 <img src={item.post_image} />
             </a>
             <h3 className="card__title">{item.post_title}</h3>

@@ -25,7 +25,7 @@ function App() {
   useEffect(() => {
     setTimeout(function(){ 
       setMessage('') 
-    }, 3000);
+    }, 5000);
   }, [message])
 
   let BASE_URL
@@ -62,7 +62,6 @@ export default App;
 
 // Add ability for users to edit their own posts
 // set pagination to properly work on user modal
-// switch to postgres database
 // Rankings on side bar (whoever has done the most posts is top). Top 5?? (might need redis for this)
 // Refactor (apiservice)
 // Tests

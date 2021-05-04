@@ -7,7 +7,7 @@
 
     &--success {
         top: 5%;
-        animation: moveMessageIn 3s forwards;
+        animation: moveMessageIn 5s forwards;
         color: green;
         border: 2px solid green;
         padding: 20px;
@@ -15,7 +15,7 @@
 
     &--error {
         top: 5%;
-        animation: moveMessageIn 3s forwards;
+        animation: moveMessageIn 5s forwards;
         color: red;
         border: 2px solid red;
         padding: 20px;

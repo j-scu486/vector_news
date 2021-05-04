@@ -1,5 +1,5 @@
 
-import { useContext, useEffect } from 'react'
+import { useContext } from 'react'
 import { MessageContext } from '../messageContext'
 
 export default function Message() {

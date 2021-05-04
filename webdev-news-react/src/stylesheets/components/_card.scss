@@ -22,6 +22,10 @@
         border-radius: 50%;
         vertical-align: middle;
         overflow: hidden;
+
+        img {
+            height: 100%;
+        }
     }
 
     &__likes {

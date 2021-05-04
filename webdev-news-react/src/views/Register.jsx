@@ -3,6 +3,7 @@ import { UserContext } from '../userContext'
 import { WebContext } from '../webContext'
 import { useHistory } from "react-router-dom"
 import { MessageContext } from '../messageContext'
+import Message from '../components/Message'
 
 export const Register = () => {
     let history = useHistory();
@@ -15,7 +16,6 @@ export const Register = () => {
         'password': '',
         'image_file': ''
     })
-    const [error, setError] = useState('')
     const {user, setUser} = useContext(UserContext)
 
     const handleSubmit = (e) => {
@@ -33,8 +33,9 @@ export const Register = () => {
         .then(res => res.json())
         .then(res => {
             if (res.error) {
-                setError({
-                    "message": res.error
+                setMessage({
+                    message: res.error,
+                    messageType: 'error'
                 })
                 throw new Error(res.error);
             } 
@@ -61,7 +62,7 @@ export const Register = () => {
                 user_id: res.user_id
             })
             setMessage({
-                message: `Welcome back ${res.username}!`,
+                message: `Thanks for registering, ${res.username}! Have fun!`,
                 messageType: "success"
             })
             history.push("/")
@@ -71,8 +72,8 @@ export const Register = () => {
 
     return (
         <div id="register">
+            <Message />
             <div className="container">
-                {error && <p>{error.message}</p>}
                 <form className="form form--register" onSubmit={handleSubmit}>
                     <label htmlFor="email">Email</label>
                     <input className="form__input" id="email" type="text" onChange={(e) => setRegisterInfo({...registerInfo, email: e.target.value})} />

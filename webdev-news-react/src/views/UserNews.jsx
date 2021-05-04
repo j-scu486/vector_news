@@ -26,7 +26,6 @@ const UserNews = () => {
 
     const site = useContext(WebContext)
     const {user} = useContext(UserContext)
-    const {message, setMessage} = useContext(MessageContext)
 
     useEffect(() => {
         updateUserNews()
@@ -70,14 +69,7 @@ const UserNews = () => {
     return (
         <div id="usernews" className="usernews">
             <Message />
-
             <div onClick={() => {setModal(!modal)}} className={`modal-container ${modal ? 'modal-active' : ''}`} ></div>
-            {!filteredNews.length &&                 
-                    <div className="loading">
-                        <div className="loading__circle loading__circle--1"></div>
-                        <div className="loading__circle loading__circle--2"></div>
-                        <div className="loading__circle loading__circle--3"></div>
-                    </div>}
             <div className="grid-container">
             <div className="menubar">
                 <MenuBar 
@@ -111,7 +103,12 @@ const UserNews = () => {
                     })}
                 </ul>
             </div>
-
+            {!filteredNews.length &&                 
+                    <div className="loading">
+                        <div className="loading__circle loading__circle--1"></div>
+                        <div className="loading__circle loading__circle--2"></div>
+                        <div className="loading__circle loading__circle--3"></div>
+                    </div>}
             <div>
                 {prevPage && <button className="btn btn--pagination" onClick={() => updateUserNews(prevPage)}>Prev Page</button>}
                 {nextPage && <button className="btn btn--pagination" onClick={() => updateUserNews(nextPage)}>Next Page</button>}

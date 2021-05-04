@@ -26,6 +26,8 @@ def create_user():
         return {"error": "this email is already registered"}, 400
 
     image_file = check_image(data['image_file'])
+    if "error" in image_file:
+        return image_file, 400
     new_user = User(email=data['email'], username=data['username'], image_filepath=image_file)
     new_user.set_password(data['password'])
     db.session.add(new_user)
