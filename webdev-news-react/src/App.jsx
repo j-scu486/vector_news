@@ -33,7 +33,7 @@ function App() {
   if (process.env.NODE_ENV === 'development') {
     BASE_URL = process.env.REACT_APP_BASE_URL
   } else {
-    BASE_URL = '' 
+    BASE_URL = process.env.REACT_APP_PROD_URL
   }
 
   return (
