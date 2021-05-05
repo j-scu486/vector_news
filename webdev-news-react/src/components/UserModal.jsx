@@ -9,6 +9,10 @@ const UserModal = ({ userId, userImg }) => {
 
     const [userInfo, setuserInfo] = useState([])
 
+    // Pagination
+    const [nextPage, setnextPage] = useState('')
+    const [prevPage, setprevPage] = useState('')
+
     useEffect(() => {
         getUsersPosts()
     }, [])
@@ -18,10 +22,23 @@ const UserModal = ({ userId, userImg }) => {
         setuserInfo([...results])
     }
 
-    const fetchUserPosts = async () => {
+    const updateUserPosts = async (page) => {
+        const results = await fetchUserPosts(page)
+        setuserInfo([...results])
+    }
 
-        const res = await fetch(`${site}api/posts/${userId}`)
+    const fetchUserPosts = async (page) => {
+        let res
+
+        if (page) {
+            res = await fetch(`${site}${page}`)
+        } else {
+            res = await fetch(`${site}api/posts/${userId}`)
+        }
+
         const data = await res.json()
+        setnextPage(data._links.next)
+        setprevPage(data._links.prev)
 
         return data.items
     }
@@ -43,6 +60,10 @@ const UserModal = ({ userId, userImg }) => {
                 )
             })}
             </ul>
+            <div className="pagination">
+                {prevPage && <button className="btn btn--pagination" onClick={() => updateUserPosts(prevPage)}>Prev Page</button>}
+                {nextPage && <button className="btn btn--pagination" onClick={() => updateUserPosts(nextPage)}>Next Page</button>}
+            </div>
         </div>
     )
 }

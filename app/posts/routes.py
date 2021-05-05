@@ -44,7 +44,7 @@ def get_all_user_posts(user_id):
 
     page = request.args.get('page', 1, type=int)
     query = Post.query.filter_by(user_id=user_id)
-    data = Post.to_collection_dict(query, page, 10, 'posts_bp.get_all_user_posts', user_id=user_id)
+    data = Post.to_collection_dict(query, page, 1, 'posts_bp.get_all_user_posts', user_id=user_id)
 
     return jsonify(data), 200
 
