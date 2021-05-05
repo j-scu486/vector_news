@@ -10,4 +10,4 @@ class Config(object):
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     MAX_CONTENT_LENGTH = 1024 * 1024
     UPLOAD_EXTENSIONS = ['.jpg', '.png', '.gif', '.jpeg']
-    REDIS_URL = "redis://localhost:6379/0"
+    REDIS_URL = os.environ.get('REDIS_URL') or "redis://localhost:6379/0"
