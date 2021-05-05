@@ -10,8 +10,8 @@ import re, os
         
 @bp.route('/')
 def index():
-    return 
-    
+    return "blank"
+
 # Get all posts
 @bp.route('/api/posts', methods=['GET'])
 def get_all_posts():
