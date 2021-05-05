@@ -8,6 +8,10 @@ from app.utils.utils import check_image, EMAIL_REGEX, regex
 
 import re, os
         
+@bp.route('/')
+def index():
+    return 
+    
 # Get all posts
 @bp.route('/api/posts', methods=['GET'])
 def get_all_posts():
