@@ -7,7 +7,7 @@ from app import redis_client
 def get_leaderboard():
     leaderboard_list = []
 
-    leaderboard_rankings = redis_client.zrevrangebyscore('leaderboard', 10, 0, withscores=True)
+    leaderboard_rankings = redis_client.zrevrange('leaderboard', 0, 4, withscores=True)
     for value in leaderboard_rankings:
         user_info = User.query.get_or_404(value[0]).to_dict()
         user_info['posts_count'] = value[1]

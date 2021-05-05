@@ -10,6 +10,7 @@ export const Register = () => {
     const site = useContext(WebContext);
     const {setMessage} = useContext(MessageContext)
     const [imageInfo, setImageInfo] = useState(null)
+    const [disableBtn, setdisableBtn] = useState(false)
     const [registerInfo, setRegisterInfo] = useState({
         'email': '',
         'username': '',
@@ -20,6 +21,7 @@ export const Register = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
+        setdisableBtn(true)
         let data = new FormData()
         let headers = new Headers()
         headers.set('Authorization', 'Basic ' + window.btoa(registerInfo.email + ":" + registerInfo.password))
@@ -37,6 +39,7 @@ export const Register = () => {
                     message: res.error,
                     messageType: 'error'
                 })
+                setdisableBtn(false)
                 throw new Error(res.error);
             } 
         })
@@ -68,7 +71,7 @@ export const Register = () => {
             history.push("/")
         })
         .catch(error => {
-            console.log(error)
+            setdisableBtn(false)
             setMessage({
                 message: error.toString(),
                 messageType: 'error'
@@ -89,7 +92,7 @@ export const Register = () => {
                         <input className="form__input" id="username" type="text" onChange={(e) => setRegisterInfo({...registerInfo, username: e.target.value})} />
                         <label htmlFor="password">Password</label>
                         <input className="form__input" id="password" type="password" onChange={(e) => setRegisterInfo({...registerInfo, password: e.target.value})} />
-                        <input className="btn btn--submit" type="submit" value="Register" />
+                        <input className={'btn btn--submit ' + (disableBtn ? 'btn--disable' : '')} type="submit" value="Register" />
 
                     </div>
                     <div className="form__container form__container--2">

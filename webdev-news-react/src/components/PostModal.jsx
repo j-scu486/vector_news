@@ -2,6 +2,7 @@
 import { useState, useContext } from 'react'
 import { WebContext } from '../webContext'
 import { UserContext } from '../userContext'
+import { MessageContext } from '../messageContext'
 
 const PostModal = ({ updateNews, setModal }) => {
     const [postDetails, setpostDetails] = useState({
@@ -9,7 +10,9 @@ const PostModal = ({ updateNews, setModal }) => {
         'tags': '',
         'post_url': ''
     })
-    const {user, setUser} = useContext(UserContext)
+    const [disableBtn, setdisableBtn] = useState(false)
+    const { user } = useContext(UserContext)
+    const { setMessage } = useContext(MessageContext)
     const site = useContext(WebContext)
 
     const handleSubmit = (e) => {
@@ -29,7 +32,6 @@ const PostModal = ({ updateNews, setModal }) => {
         let headers = new Headers()
         headers.set('Authorization', 'Bearer ' + `${user.token}`)
         headers.set('Content-type', 'application/json')
-        console.log(JSON.stringify(postDetails))
 
         fetch(`${site}api/post/create`, {
             method: 'POST',
@@ -41,11 +43,23 @@ const PostModal = ({ updateNews, setModal }) => {
                 updateNews()
                 setModal(false)
             } else if (res.status === 400) {
-                console.log("Invalid URL or tags")
+                setdisableBtn(false)
+                setMessage({
+                    message: 'Invalid URL or tags',
+                    messageType: 'error'
+                })
             } else if (res.status === 401) {
-                console.log("Session expired. Please login again")
+                setdisableBtn(false)
+                setMessage({
+                    message: 'Session expired. Please login again',
+                    messageType: 'error'
+                })
             } else {
-                console.log("Some error occured")
+                setdisableBtn(false)
+                setMessage({
+                    message: 'An unknown error has occured',
+                    messageType: 'error'
+                })
             }
         })
         
@@ -91,10 +105,10 @@ const PostModal = ({ updateNews, setModal }) => {
                         onChange={(e) => handleTags(e)}
                         value="css" 
                     />
-                    <label>css</label>
+                    <label>CSS</label>
                 </div>
                 <input 
-                    className="btn btn--form-post"
+                    className={"btn btn--form-post " + (disableBtn ? 'btn--disable' : '')}
                     type="submit" 
                     value="submit" 
                     />

@@ -7,16 +7,18 @@ import Message from '../components/Message'
 
 const Login = () => {
     let history = useHistory();
-    const site = useContext(WebContext)
+    const [disableBtn, setdisableBtn] = useState(false)
     const [loginInfo, setloginInfo] = useState({
         'email': '',
         'password': ''
     })
     const { setUser } = useContext(UserContext)
+    const site = useContext(WebContext)
     const { setMessage } = useContext(MessageContext)
 
     const handleSubmit = (e) => {
         e.preventDefault()
+        setdisableBtn(true)
         let headers = new Headers()
         headers.set('Authorization', 'Basic ' + window.btoa(loginInfo.email + ":" + loginInfo.password))
 
@@ -44,6 +46,7 @@ const Login = () => {
                 history.push("/")
             }
             else {
+                setdisableBtn(false)
                 setMessage({
                     message: "Invalid username or password",
                     messageType: "error"
@@ -62,7 +65,7 @@ const Login = () => {
                     <input className="form__input" type="text" id="email" onChange={(e) => setloginInfo({...loginInfo, email: e.target.value})} />
                     <label htmlFor="password">Password</label>
                     <input className="form__input" type="password" htmlFor="password" onChange={(e) => setloginInfo({...loginInfo, password: e.target.value})} />
-                    <input className="btn btn--submit" type="submit" value="Login" />
+                    <input className={'btn btn--submit ' + (disableBtn ? 'btn--disabled' : '' )} type="submit" value="Login" />
                 </form>
             </div>
         </div>

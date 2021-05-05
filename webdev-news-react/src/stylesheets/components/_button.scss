@@ -4,7 +4,9 @@
     padding: .75vw 2vw;
     font-size: clamp(.6rem, 1.5vw, 1rem);
     font-weight: 900;
+    border-radius: 16px;
     cursor: pointer;
+    transition: box-shadow .25s;
 
     &--pagination {
         &:hover {
@@ -18,12 +20,13 @@
         border-radius: 5px;
         color: #fff;
         background: $primary-orange;
+        @include btn-box-shadow;
     }
 
     &--register {
         border: 2px solid $primary-orange;
         border-radius: 16px;
-        color: $primary-orange
+        color: $primary-orange;
     }
 
     &--form-post {
@@ -32,17 +35,22 @@
         border: none;
         text-transform: uppercase;
         margin: 20px 0 0;
+        @include btn-box-shadow;
+
     }
 
     &--add-post {
         background-color: $primary-orange;
-        border-radius: 20px;
         color: #fff;
         transition: all .25s;
+        @include btn-box-shadow;
 
-        &:hover {
-            box-shadow: 0 5px 10px rgba($color: #ffa45b, $alpha: 0.8);
-        }
+    }
+
+    &--disabled {
+        background-color: rgb(212, 212, 212);
+        pointer-events: none;
+        border: none;
     }
 
 }
