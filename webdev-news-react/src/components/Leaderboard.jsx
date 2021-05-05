@@ -19,9 +19,13 @@ export default function Leaderboard() {
         setleaderBoard(data)
     }
 
-    useEffect(async () => {
+    const fetchData = async () => {
         let data = await leaderboard()
         updateLeaderboard(data.leaderboard_data)
+    }
+
+    useEffect(() => {
+        fetchData()
     }, [])
 
     return (
