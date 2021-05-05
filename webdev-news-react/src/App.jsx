@@ -69,5 +69,4 @@ export default App;
 
 // Navbar styling (responsiveness + styling)
 // Responsivness (at least to laptop 1366px)
-// Spinning loaders on buttons
 // Click likes: open modal to show users who like (advanced)
