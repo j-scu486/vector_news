@@ -92,7 +92,7 @@ export const Register = () => {
                         <input className="form__input" id="username" type="text" onChange={(e) => setRegisterInfo({...registerInfo, username: e.target.value})} />
                         <label htmlFor="password">Password</label>
                         <input className="form__input" id="password" type="password" onChange={(e) => setRegisterInfo({...registerInfo, password: e.target.value})} />
-                        <input className={'btn btn--submit ' + (disableBtn ? 'btn--disable' : '')} type="submit" value="Register" />
+                        <input className={'btn btn--submit ' + (disableBtn ? 'btn--disabled' : '')} type="submit" value="Register" />
 
                     </div>
                     <div className="form__container form__container--2">

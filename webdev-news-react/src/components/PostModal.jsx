@@ -108,7 +108,7 @@ const PostModal = ({ updateNews, setModal }) => {
                     <label>CSS</label>
                 </div>
                 <input 
-                    className={"btn btn--form-post " + (disableBtn ? 'btn--disable' : '')}
+                    className={"btn btn--form-post " + (disableBtn ? 'btn--disabled' : '')}
                     type="submit" 
                     value="submit" 
                     />
