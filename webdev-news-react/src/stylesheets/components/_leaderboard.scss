@@ -9,6 +9,10 @@
     width: 90%;
     height: 35vw;
 
+    @include laptop_and_large {
+        padding: 20px;
+    }
+
     &__list {
         width: 100%;
     }
