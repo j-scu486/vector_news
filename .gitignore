@@ -7,6 +7,8 @@ pyvenv.cfg
 /.env
 /venv
 /__pycache__
+/__tests__
+
 
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
@@ -16,7 +18,7 @@ pyvenv.cfg
 .pnp.js
 
 # testing
-/webdev-news-react/coverage
+/webdev-news-react/src/__tests__
 
 # production
 /webdev-news-react/build
