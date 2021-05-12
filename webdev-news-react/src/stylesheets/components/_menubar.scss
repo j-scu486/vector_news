@@ -30,4 +30,8 @@
         color: #fff;
         background-color: $primary-orange;
     }
+
+    @include tablet_and_laptop {
+        font-size: 1.25rem;
+    }
 }
