@@ -6,7 +6,9 @@ pyvenv.cfg
 /Lib
 /.env
 /venv
-/__pycache__
+*/*/*/__pycache__/
+*/*/__pycache__/
+*/__pycache__/
 /__tests__
 
 

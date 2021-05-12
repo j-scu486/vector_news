@@ -9,10 +9,6 @@
     width: 90%;
     height: 35vw;
 
-    @include laptop_and_large {
-        padding: 20px;
-    }
-
     &__list {
         width: 100%;
     }
@@ -22,6 +18,10 @@
         margin-bottom: 50px;
         color: $primary-orange;
         border-bottom: 5px solid $primary-blue;
+
+        @include tablet_and_laptop {
+            font-size: 1.8rem;
+        }
     }
 
     &__item {
@@ -58,4 +58,9 @@
         }
 
     }   
+
+    @include tablet_and_laptop {
+        padding: 20px;
+    }
+
 }
