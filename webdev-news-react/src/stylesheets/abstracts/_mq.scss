@@ -1,11 +1,11 @@
 @mixin laptop_and_large {
-    @media screen and (min-width: 1360px) and (max-width: 1600px) {
+    @media screen and (min-width: 1400px) and (max-width: 1600px) {
         @content
     }
 }
 
 @mixin tablet_and_laptop {
-    @media screen and (min-width: 740px) and (max-width: 1359px) {
+    @media screen and (min-width: 740px) and (max-width: 1399px) {
         @content
     }
 }

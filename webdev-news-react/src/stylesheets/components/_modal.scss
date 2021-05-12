@@ -61,6 +61,10 @@
             margin-bottom: 50px;
         }
     }
+
+    @include tablet_and_laptop {
+        height: 90%;
+    }
 }
 
 .modal-container {

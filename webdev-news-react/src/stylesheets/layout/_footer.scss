@@ -12,6 +12,10 @@
         color: #fff;
         font-size: 2rem;
         width: 100%;
+
+        @include tablet_and_laptop {
+            font-size: 1.4rem;
+        }
     }
 
     &__link {
