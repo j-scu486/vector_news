@@ -61,12 +61,13 @@ export default App;
 // Backend TODO
 
 // Add ability for users to edit their own posts
-// set pagination to properly work on user modal
 // Refactor (apiservice)
 // Tests
 
 // Frontend TODO
 
+// Disable submit btn on add post
+// Loader on user modal
 // Navbar styling (responsiveness + styling)
 // Responsivness (at least to laptop 1366px)
 // Click likes: open modal to show users who like (advanced)

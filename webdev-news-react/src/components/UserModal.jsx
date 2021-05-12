@@ -1,12 +1,9 @@
 
 import { useState, useContext, useEffect } from 'react'
 import { WebContext } from '../webContext'
-import { UserContext } from '../userContext'
 
 const UserModal = ({ userId, userImg }) => {
     const site = useContext(WebContext)
-    const {user, setUser} = useContext(UserContext)
-
     const [userInfo, setuserInfo] = useState([])
 
     // Pagination
@@ -14,13 +11,8 @@ const UserModal = ({ userId, userImg }) => {
     const [prevPage, setprevPage] = useState('')
 
     useEffect(() => {
-        getUsersPosts()
+        updateUserPosts()
     }, [])
-
-    const getUsersPosts = async () => {
-        const results = await fetchUserPosts()
-        setuserInfo([...results])
-    }
 
     const updateUserPosts = async (page) => {
         const results = await fetchUserPosts(page)
