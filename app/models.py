@@ -119,7 +119,7 @@ class Post(PaginatedAPIMixin, db.Model):
     post_title = db.Column(db.String(140))
     post_description = db.Column(db.String(140))
     post_comment = db.Column(db.String(140))
-    post_image = db.Column(db.String(1000))
+    post_image = db.Column(db.Text)
     post_url = db.Column(db.String(290))
     tags = db.relationship("Tag", secondary=tags)
     created = db.Column(db.DateTime, index=True, default=datetime.utcnow)
