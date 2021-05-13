@@ -75,10 +75,10 @@ def create_post():
 
     user = User.query.filter_by(token=token_auth.current_user().token).first()
     new_post.user_id = user.id
-    increment_posts(user)
 
     db.session.add(new_post)
     db.session.commit()
+    increment_posts(user)
 
     return jsonify(data), 201
 
