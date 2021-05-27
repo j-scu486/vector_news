@@ -6,8 +6,9 @@ from app.models import User, Post, Tag, Like
 from app.auth.auth import token_auth, basic_auth
 from app.utils.utils import check_image, EMAIL_REGEX, regex
 
-import re, os
-        
+import re, os, json
+from slack_sdk.signature import SignatureVerifier
+
 @bp.route('/')
 def index():
     return "blank"
@@ -47,6 +48,19 @@ def get_all_user_posts(user_id):
     data = Post.to_collection_dict(query, page, 5, 'posts_bp.get_all_user_posts', user_id=user_id)
 
     return jsonify(data), 200
+
+@bp.route('/api/post/slacktest', methods=['POST'])
+def test_route():
+    try:
+        data = request.get_data()
+    except:
+        return {"error": "Bad Request"}, 400
+
+    secret = '38697bd4ccade8a55f202ecb8201ac2c'
+    test = SignatureVerifier(secret)
+    print(test.is_valid_request(data, request.headers))
+    
+    return "Works"
 
 @bp.route('/api/post/create', methods=['POST'])
 @token_auth.login_required
