@@ -1,13 +1,18 @@
 from flask import jsonify, redirect, url_for, request
+from dotenv import load_dotenv
 from app import db, redis_client
 from app.posts import bp
 from app.redis.leaderboard import increment_posts, decrement_posts
 from app.models import User, Post, Tag, Like
-from app.auth.auth import token_auth, basic_auth
+from app.auth.auth import token_auth, basic_auth, validate_user
 from app.utils.utils import check_image, EMAIL_REGEX, regex
+from app.utils.modal_view import modal_view, error_message
 
-import re, os
-        
+import re, os, json, requests
+from slack_sdk.signature import SignatureVerifier
+
+load_dotenv()
+
 @bp.route('/')
 def index():
     return "blank"
@@ -47,6 +52,105 @@ def get_all_user_posts(user_id):
     data = Post.to_collection_dict(query, page, 5, 'posts_bp.get_all_user_posts', user_id=user_id)
 
     return jsonify(data), 200
+
+@bp.route('/api/post/slacktest/modal', methods=['POST'])
+def create_post_from_slack_modal():
+
+    headers = {"Authorization": "Bearer %s" % os.environ['SLACK_ACCESS_TOKEN']} 
+    json_data = json.loads(request.form.get('payload'))
+    view = modal_view(json_data['trigger_id'])
+    url = 'https://slack.com/api/views.open'
+    user = validate_user(json_data['user']['username'])
+
+    if json_data["type"] == "shortcut":
+        requests.post(url, json=view, headers=headers)
+    elif json_data["type"] == "view_submission":
+        if not user:
+            return error_message('user_id', 'You are not registered!')
+ 
+        root = json_data['view']['state']['values']
+        response_url = json_data['response_urls'][0]['response_url']
+        post_data = {
+            'post_description': '',
+            'tags': '',
+            'post_url': ''
+        }
+        for value in root.values():
+            if 'url' in value:
+                post_data['post_url'] = value['url']['value']
+                
+                if not re.match(regex, post_data['post_url']):
+                    return error_message('url_id', 'Invalid URL')
+                elif post_data['post_url'] == '':
+                    return error_message('url_id', 'URL is required')
+
+            if 'post_description' in value:
+                post_data['post_description'] = value['post_description']['value']
+
+                if post_data['post_description'] == '':
+                    return error_message('post_descripton_id', 'Description is required')
+
+            if 'tags' in value:
+                post_data['tags'] = [tag['value'] for tag in value['tags']['selected_options']]
+
+                for tag in post_data['tags']:
+                    if tag not in Tag.valid_tags():
+                        return error_message('tags_id', 'Invalid Tags')
+
+
+        message = {
+            "type": "mrkdwn", 
+            "response_type": "in_channel",
+            "text": "%s\n%s" % (post_data['post_description'], post_data['post_url'])
+        }
+        
+        requests.post(response_url, data=json.dumps(message), headers={'content-type':'application/json'})
+
+        new_post = Post()
+        new_post.from_dict(post_data)
+        new_post.user_id = user.id
+
+        db.session.add(new_post)
+        db.session.commit()
+        increment_posts(user)
+
+        return {}, 200
+
+    return {"message": "ok"}, 200
+
+# @bp.route('/api/post/slacktest', methods=['POST'])
+# def create_post_from_slack():
+#     try:
+#         raw_data = request.get_data()
+#     except:
+#         return {"error": "Bad Request"}, 400
+
+#     secret = os.environ["SLACK_SIGNING_SECRET"]
+#     signature = SignatureVerifier(secret)
+#     if not signature.is_valid_request(raw_data, request.headers):
+#         return {"error": "Forbidden"}, 403
+
+#     data = request.form.get('payload')
+#     test = json.loads(data)
+#     root = test['view']['state']['values']
+#     post_data = {
+#         'post_description': '',
+#         'tags': '',
+#         'post_url': ''
+#     }
+    
+#     for value in root.values():
+#         if 'url' in value:
+#             post_data['post_url'] = value['url']['value']
+#         if 'post_description' in value:
+#             post_data['post_description'] = value['post_description']['value']
+#         if 'tags' in value:
+#             post_data['tags'] = [tag['value'] for tag in value['tags']['selected_options']]
+
+#     new_post = Post()
+
+#     print(post_data)
+#     return post_data, 201
 
 @bp.route('/api/post/create', methods=['POST'])
 @token_auth.login_required

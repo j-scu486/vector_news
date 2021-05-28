@@ -49,3 +49,10 @@ def revoke_token():
     db.session.commit()
 
     return {"msg": "token revoked"}, 200
+
+def validate_user(username):
+    user = User.query.filter_by(username=username).first()
+
+    if user:
+        return user
+    return False
