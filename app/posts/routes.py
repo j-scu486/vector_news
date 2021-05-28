@@ -53,6 +53,8 @@ def get_all_user_posts(user_id):
 
     return jsonify(data), 200
 
+# Create a post from slack 
+
 @bp.route('/api/post/slacktest/modal', methods=['POST'])
 def create_post_from_slack_modal():
 
@@ -117,40 +119,6 @@ def create_post_from_slack_modal():
         return {}, 200
 
     return {"message": "ok"}, 200
-
-# @bp.route('/api/post/slacktest', methods=['POST'])
-# def create_post_from_slack():
-#     try:
-#         raw_data = request.get_data()
-#     except:
-#         return {"error": "Bad Request"}, 400
-
-#     secret = os.environ["SLACK_SIGNING_SECRET"]
-#     signature = SignatureVerifier(secret)
-#     if not signature.is_valid_request(raw_data, request.headers):
-#         return {"error": "Forbidden"}, 403
-
-#     data = request.form.get('payload')
-#     test = json.loads(data)
-#     root = test['view']['state']['values']
-#     post_data = {
-#         'post_description': '',
-#         'tags': '',
-#         'post_url': ''
-#     }
-    
-#     for value in root.values():
-#         if 'url' in value:
-#             post_data['post_url'] = value['url']['value']
-#         if 'post_description' in value:
-#             post_data['post_description'] = value['post_description']['value']
-#         if 'tags' in value:
-#             post_data['tags'] = [tag['value'] for tag in value['tags']['selected_options']]
-
-#     new_post = Post()
-
-#     print(post_data)
-#     return post_data, 201
 
 @bp.route('/api/post/create', methods=['POST'])
 @token_auth.login_required
