@@ -103,7 +103,8 @@ def create_post_from_slack_modal():
         message = {
             "type": "mrkdwn", 
             "response_type": "in_channel",
-            "text": "%s\n%s" % (post_data['post_description'], post_data['post_url'])
+            "unfurl_links": True,
+            "text": "*New Post from %s!* :smile:\n %s\n%s" % (user.username, post_data['post_description'], post_data['post_url'])
         }
         
         requests.post(response_url, data=json.dumps(message), headers={'content-type':'application/json'})
@@ -190,3 +191,8 @@ def like_post():
     db.session.commit()
 
     return jsonify(liked_post)
+
+
+# TODO
+# change frontend styling to match vector colors / language
+# host server on different heroku (gcp?)
