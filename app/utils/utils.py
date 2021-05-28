@@ -1,4 +1,4 @@
-from flask import current_app, abort
+from flask import current_app
 from werkzeug.utils import secure_filename
 import re, os
 
