@@ -1,5 +1,3 @@
-# webdev-news
-
 <h1> Vector News </h1>
 
 <h2> Similar app to webdev news, but built to intergrate with slack channel used by Vector Signal</h2>
