@@ -2,7 +2,7 @@ import { UserContext } from '../userContext'
 import { WebContext } from '../webContext'
 import { useContext } from 'react'
 import { Link } from 'react-router-dom'
-import logo from '../images/logo.png'
+import logo from '../images/logo_signal.png'
 
 const Header = () => {
     const {user, setUser} = useContext(UserContext)
@@ -24,12 +24,12 @@ const Header = () => {
                     <Link to="/"><img src={logo} alt=""/></Link>
                 </div>
                 <div className="nav__links">
-                    { user.token && <p>Hi, {user.username}!</p>}
+                    { user.token && <p>こんにちは, {user.username}!</p>}
                     { !user.token 
-                        ? <Link className="btn btn--login" to="/login">Login</Link>  
-                        : <button className="btn btn--login" onClick={handleLogout}>Logout</button>
+                        ? <Link className="btn btn--login" to="/login">ログイン</Link>  
+                        : <button className="btn btn--login" onClick={handleLogout}>ログアウト</button>
                     }
-                    {!user.token && <Link className="btn btn--register" to="/register">Register</Link>}
+                    {!user.token && <Link className="btn btn--register" to="/register">登録</Link>}
                 </div>
             </nav>
         </header>

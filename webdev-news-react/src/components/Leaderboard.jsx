@@ -1,8 +1,6 @@
 import React from 'react'
 import { WebContext } from '../webContext'
 import { useContext, useEffect, useState } from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCrown } from '@fortawesome/free-solid-svg-icons'
 
 export default function Leaderboard() {
     const site = useContext(WebContext)
@@ -30,7 +28,7 @@ export default function Leaderboard() {
 
     return (
         <div className="leaderboard">
-            <h2 className="leaderboard__title">Top posters!<FontAwesomeIcon style={{ marginLeft: 20, color: '#ffda77' }} icon={faCrown}></FontAwesomeIcon></h2>
+            <h2 className="leaderboard__title">投稿ランキング</h2>
             <ul className="leaderboard__list">
             {leaderBoard.map((item, index) => {
                 return (

@@ -77,7 +77,7 @@ export default function NewsCard({ item, setModal, setuserInfo, setcurrentModal,
                 </div>
                 </button>
                 <div className={'card__likes ' + (!user.token ? 'card__likes--logout' : '') }>
-                    <p>{likeList.length} like{likeList.length === 1 ? '' : 's'}</p>
+                    <p>{likeList.length} いいね！</p>
                     {user.token && 
                     <LikeButton
                         toggleLike={addRemoveLike}

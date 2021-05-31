@@ -84,7 +84,7 @@ const UserNews = () => {
                         setcurrentModal('newPost')
                         }}
                         className="btn btn--add-post"
-                        >Add Post <FontAwesomeIcon style={{ marginLeft: 10, fontSize: 20 }} icon={faPlusCircle}></FontAwesomeIcon>
+                        >投稿する <FontAwesomeIcon style={{ marginLeft: 10, fontSize: 20 }} icon={faPlusCircle}></FontAwesomeIcon>
                     </button>
                 }
             </div>
@@ -111,8 +111,8 @@ const UserNews = () => {
                         <div className="loading__circle loading__circle--3"></div>
                     </div>}
             <div className="pagination">
-                {prevPage && <button className="btn btn--pagination" onClick={() => updateUserNews(prevPage)}>Prev Page</button>}
-                {nextPage && <button className="btn btn--pagination" onClick={() => updateUserNews(nextPage)}>Next Page</button>}
+                {prevPage && <button className="btn btn--pagination" onClick={() => updateUserNews(prevPage)}>前のページ</button>}
+                {nextPage && <button className="btn btn--pagination" onClick={() => updateUserNews(nextPage)}>次のページ</button>}
             </div>
                 <CSSTransition
                     in={modal}

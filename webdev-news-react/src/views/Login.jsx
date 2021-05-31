@@ -59,13 +59,13 @@ const Login = () => {
         <div id="login">
             <Message />
             <div className="container">
-                <h2 className="login__title">Login</h2>
+                <h2 className="login__title">ログイン</h2>
                 <form className="form form--login" onSubmit={handleSubmit}>
-                    <label htmlFor="email">Email</label>
+                    <label htmlFor="email">メール</label>
                     <input className="form__input" type="text" id="email" onChange={(e) => setloginInfo({...loginInfo, email: e.target.value})} />
-                    <label htmlFor="password">Password</label>
+                    <label htmlFor="password">パスワード</label>
                     <input className="form__input" type="password" htmlFor="password" onChange={(e) => setloginInfo({...loginInfo, password: e.target.value})} />
-                    <input className={'btn btn--submit ' + (disableBtn ? 'btn--disabled' : '' )} type="submit" value="Login" />
+                    <input className={'btn btn--submit ' + (disableBtn ? 'btn--disabled' : '' )} type="submit" value="ログイン" />
                 </form>
             </div>
         </div>

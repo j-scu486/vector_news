@@ -83,20 +83,20 @@ export const Register = () => {
         <div id="register">
             <Message />
             <div className="container">
-                <h2 className="register__title">Register</h2>
+                <h2 className="register__title">登録</h2>
                 <form className="form form--register" onSubmit={handleSubmit}>
                     <div className="form__container form__container--1">
-                        <label htmlFor="email">Email</label>
+                        <label htmlFor="email">メール</label>
                         <input className="form__input" id="email" type="text" onChange={(e) => setRegisterInfo({...registerInfo, email: e.target.value})} />
-                        <label htmlFor="username">Username</label>
+                        <label htmlFor="username">ユーザーネーム</label>
                         <input className="form__input" id="username" type="text" onChange={(e) => setRegisterInfo({...registerInfo, username: e.target.value})} />
-                        <label htmlFor="password">Password</label>
+                        <label htmlFor="password">パスワード</label>
                         <input className="form__input" id="password" type="password" onChange={(e) => setRegisterInfo({...registerInfo, password: e.target.value})} />
-                        <input className={'btn btn--submit ' + (disableBtn ? 'btn--disabled' : '')} type="submit" value="Register" />
+                        <input className={'btn btn--submit ' + (disableBtn ? 'btn--disabled' : '')} type="submit" value="登録" />
 
                     </div>
                     <div className="form__container form__container--2">
-                        <h2 className="form-heading--avatar">Upload an avatar!</h2>
+                        <h2 className="form-heading--avatar">アバターをアップロードしよう！</h2>
                         <input type="file" onChange={(e) => {
                             setImageInfo(e.target.files[0])
                             setRegisterInfo({...registerInfo, image_file: e.target.files[0].name})

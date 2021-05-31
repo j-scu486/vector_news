@@ -104,7 +104,7 @@ def create_post_from_slack_modal():
             "type": "mrkdwn", 
             "response_type": "in_channel",
             "unfurl_links": True,
-            "text": "*New Post from %s!* :smile:\n %s\n%s" % (user.username, post_data['post_description'], post_data['post_url'])
+            "text": "*%sさんが記事を投稿しました！* :tada: :tada:\n %s\n%s" % (user.username, post_data['post_description'], post_data['post_url'])
         }
         
         requests.post(response_url, data=json.dumps(message), headers={'content-type':'application/json'})
