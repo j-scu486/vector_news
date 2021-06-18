@@ -96,7 +96,7 @@ export const Register = () => {
 
                     </div>
                     <div className="form__container form__container--2">
-                        <h2 className="form-heading--avatar">アバターをアップロードしよう！</h2>
+                        <h2 className="form-heading--avatar">アバターを<br />アップロードしよう！</h2>
                         <input type="file" onChange={(e) => {
                             setImageInfo(e.target.files[0])
                             setRegisterInfo({...registerInfo, image_file: e.target.files[0].name})
